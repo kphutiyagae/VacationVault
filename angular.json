@@ -103,6 +103,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "vacation-vault:build:production",
+            "firebaseProject": "vacationvault-f9e86",
+            "firebaseHostingSite": "vacationvault-f9e86"
+          }
         }
       }
     }
