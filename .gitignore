@@ -5,3 +5,6 @@ node_modules
 .firebase
 *-debug.log
 .runtimeconfig.json
+
+/src/app/enviroments/
+environments.ts
