@@ -18,6 +18,11 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideFunctions,getFunctions } from '@angular/fire/functions';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import {AuthService} from "./shared/services/auth.service";
+import {NzFormModule} from "ng-zorro-antd/form";
+import {NzInputModule} from "ng-zorro-antd/input";
+import {NzButtonModule} from "ng-zorro-antd/button";
 
 registerLocaleData(uk);
 
@@ -25,7 +30,8 @@ registerLocaleData(uk);
   declarations: [
     AppComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -37,10 +43,14 @@ registerLocaleData(uk);
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),
-    provideFunctions(() => getFunctions())
+    provideFunctions(() => getFunctions()),
+    NzFormModule,
+    NzInputModule,
+    NzButtonModule,
   ],
   providers: [
-    { provide: NZ_I18N, useValue: uk_UA }
+    { provide: NZ_I18N, useValue: uk_UA },
+      AuthService
   ],
   bootstrap: [AppComponent]
 })

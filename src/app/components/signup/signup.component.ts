@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService} from "../../shared/services/auth.service";
 
 @Component({
   selector: 'app-signup',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent {
+constructor() {
+}
 
+ngOnInit() {}
 }

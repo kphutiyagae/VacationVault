@@ -1,1 +1,21 @@
 <p>login works!</p>
+
+<form nz-form>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="email" >Email</nz-form-label>
+        <nz-form-control nzSpan="14">
+            <input nz-input name="email" type="email" id="email">
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="password" >Password</nz-form-label>
+        <nz-form-control nzSpan="14">
+            <input nz-input name="password" type="password" id="password">
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-control>
+            <button nz-button nzType="primary">Submit</button>
+        </nz-form-control>
+    </nz-form-item>
+</form>
