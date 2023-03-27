@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "vacationvault-f9e86": {
+      "hosting": {
+        "vacation-vault": [
+          "vacationvault-f9e86"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "vacationvault-f9e86"
+  }
+}
