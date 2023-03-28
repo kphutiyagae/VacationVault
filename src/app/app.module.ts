@@ -16,12 +16,24 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideFunctions,getFunctions } from '@angular/fire/functions';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import {AuthService} from "./shared/services/auth.service";
+import {NzFormModule} from "ng-zorro-antd/form";
+import {NzInputModule} from "ng-zorro-antd/input";
+import {NzButtonModule} from "ng-zorro-antd/button";
+import {AngularFirestore} from "@angular/fire/compat/firestore";
+import {FIREBASE_OPTIONS} from "@angular/fire/compat";
 
 registerLocaleData(uk);
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    SignupComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -33,11 +45,19 @@ registerLocaleData(uk);
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),
-    provideFunctions(() => getFunctions())
+    provideFunctions(() => getFunctions()),
+    NzFormModule,
+    NzInputModule,
+    NzButtonModule,
   ],
   providers: [
-    { provide: NZ_I18N, useValue: uk_UA }
+    {provide: FIREBASE_OPTIONS, useValue: environment.firebase},
+    { provide: NZ_I18N, useValue: uk_UA },
+      AuthService
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(db: AngularFirestore) {
+  }
+}

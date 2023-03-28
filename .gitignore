@@ -8,3 +8,5 @@ node_modules
 
 src/app/enviroments/*
 environments.ts
+
+*.txt
