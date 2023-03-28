@@ -4,18 +4,18 @@
     <nz-form-item>
         <nz-form-label [nzSpan]="6" nzFor="email" >Email</nz-form-label>
         <nz-form-control nzSpan="14">
-            <input nz-input name="email" type="email" id="email">
+            <input nz-input name="email" type="email" id="email" [(ngModel)]="userEmail">
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
         <nz-form-label [nzSpan]="6" nzFor="password" >Password</nz-form-label>
         <nz-form-control nzSpan="14">
-            <input nz-input name="password" type="password" id="password">
+            <input nz-input name="password" type="password" id="password" [(ngModel)]="userPassword">
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
         <nz-form-control>
-            <button nz-button nzType="primary">Submit</button>
+            <button nz-button nzType="primary" (click)="log(userEmail,userPassword)">Submit</button>
         </nz-form-control>
     </nz-form-item>
 </form>

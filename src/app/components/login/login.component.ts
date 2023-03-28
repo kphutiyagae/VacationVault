@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {NzFormModule} from 'ng-zorro-antd/form';
 import {AuthService} from "../../shared/services/auth.service";
 @Component({
   selector: 'app-login',
@@ -7,7 +6,15 @@ import {AuthService} from "../../shared/services/auth.service";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  constructor() {
+
+  userEmail = '';
+  userPassword = '';
+  constructor(protected auth: AuthService) {
   }
   ngOnInit(){}
+
+  log(a: string, b: string){
+    console.log('Form Data : ', { 'email': a, 'password' : b})
+    this.auth.loginUser(a,b)
+}
 }

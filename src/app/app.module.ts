@@ -23,6 +23,8 @@ import {AuthService} from "./shared/services/auth.service";
 import {NzFormModule} from "ng-zorro-antd/form";
 import {NzInputModule} from "ng-zorro-antd/input";
 import {NzButtonModule} from "ng-zorro-antd/button";
+import {AngularFirestore} from "@angular/fire/compat/firestore";
+import {FIREBASE_OPTIONS} from "@angular/fire/compat";
 
 registerLocaleData(uk);
 
@@ -49,9 +51,13 @@ registerLocaleData(uk);
     NzButtonModule,
   ],
   providers: [
+    {provide: FIREBASE_OPTIONS, useValue: environment.firebase},
     { provide: NZ_I18N, useValue: uk_UA },
       AuthService
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(db: AngularFirestore) {
+  }
+}
