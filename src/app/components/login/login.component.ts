@@ -14,7 +14,7 @@ export class LoginComponent {
   ngOnInit(){}
 
   log(a: string, b: string){
-    console.log('Form Data : ', { 'email': a, 'password' : b})
+    //console.log('Form Data : ', { 'email': a, 'password' : b})
     this.auth.loginUser(a,b)
 }
 }
