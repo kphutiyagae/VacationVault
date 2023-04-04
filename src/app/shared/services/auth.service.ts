@@ -1,21 +1,13 @@
 import { Injectable, NgZone } from '@angular/core';
-import {IUser} from "../../models/user";
-import * as auth from 'firebase/auth';
 import {AngularFireAuth} from "@angular/fire/compat/auth";
-import {
-  AngularFirestore,
-  AngularFirestoreDocument,
-} from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
-import {error} from "@angular/compiler-cli/src/transformers/util";
-
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   userData: any;
   constructor(
-      public angularFirestore: AngularFirestore,
+
       public angularFireAuth: AngularFireAuth,
       public router: Router,
       public ngZone: NgZone
