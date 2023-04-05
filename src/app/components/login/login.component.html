@@ -1,3 +1,4 @@
+<!-- Code for tooltips in nzForm from: https://stackblitz.com/run?file=src%2Fapp%2Fapp.component.ts-->
 <div class="w-full bg-background-color h-full">
     <h1 class="text-4xl font-black pl-8 pt-16 pb-8">Login</h1>
     <form nz-form [formGroup]="loginForm">
@@ -17,14 +18,19 @@
         </nz-form-item>
 
         <nz-form-item class="px-8 pt-4">
-            <nz-form-label [nzSpan]="6" nzFor="password" class=""><span class="font-medium text-lg">Password:</span></nz-form-label>
-            <nz-form-control nzSpan="14" class="py-2.5">
-                <input nz-input name="email"
+            <nz-form-label [nzSpan]="6"
+                           nzFor="password"
+                           class=""><span class="font-medium text-lg">Password:</span></nz-form-label>
+            <nz-form-control nzSpan="14" class="py-2.5" nzHasFeedback [nzErrorTip]="userPasswordErrorsTip">
+                <input nz-input name="password"
                        type="password"
                        id="password"
                        formControlName="password"
                        class="p-2.5 bg-background-color rounded-md">
             </nz-form-control>
+            <ng-template #userPasswordErrorsTip let-control>
+                <ng-container *ngIf="control.hasError('required')">Password is required.</ng-container>
+            </ng-template>
         </nz-form-item>
 
             <nz-form-item>
@@ -34,7 +40,7 @@
                             class="h-full w-full p-3 rounded-md
                              bg-primary-color
                              hover:bg-primary-color-highlight
-                             border-0"
+                             border-0 disabled:bg-gray-200"
                             [disabled]="!loginForm.valid"
                     >
                                 <span class="font-medium">Submit</span>
