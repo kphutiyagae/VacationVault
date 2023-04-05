@@ -1,5 +1,4 @@
 import {inject, Injectable} from '@angular/core';
-import { DocumentReference} from "@angular/fire/compat/firestore";
 import {ITrip} from "../../../../models/types";
 import {
   Firestore,
@@ -11,7 +10,7 @@ import {
   deleteDoc,
   updateDoc
 } from "@angular/fire/firestore";
-import {from, Observable} from "rxjs";
+import {from, Observable, switchMap} from "rxjs";
 
 import {IItem} from "../../../models/user";
 
@@ -33,14 +32,20 @@ export class ApiService {
     return docData(tripReference) as Observable<ITrip>;
   }
 
-  addTrip(trip: ITrip): Observable<DocumentReference<ITrip>>{
+  addTrip(trip: ITrip): Observable<string>{
     const tripCollection = collection(this.firestore, 'trips');
-    return from(addDoc(tripCollection, trip)) as unknown as Observable<DocumentReference<ITrip>>;
+    return from(addDoc(tripCollection, trip)).pipe(
+        switchMap( reference => reference.id)
+    )
   }
 
-  addItineraryItem(item: IItem, tripId: string): Observable<DocumentReference<IItem>> {
+  addItineraryItem(item: IItem, tripId: string): Observable<string> {
     const itemCollection = collection(this.firestore, `trips/${tripId}/itinerary`);
-    return from( addDoc(itemCollection, item) ) as unknown as Observable<DocumentReference<IItem>>;
+    return from( addDoc(itemCollection, item) ).pipe(
+        switchMap( documentReference =>
+          documentReference.id
+        )
+    )
   }
 
   getTripItineraryList(tripId:string): Observable<IItem[]>{
@@ -53,15 +58,15 @@ export class ApiService {
     return docData(itineraryCollection) as Observable<IItem>;
   }
 
-  updateTripDetails(tripId:string, updateKeyValuePairs: {} ): Observable<DocumentReference<ITrip>>{
+  updateTripDetails(tripId:string, updateKeyValuePairs: {} ): Observable<void>{
     const tripDocRef = doc(this.firestore, `trips/${tripId}`);
-    return from( updateDoc(tripDocRef, updateKeyValuePairs) ) as unknown as Observable<DocumentReference<ITrip>>;
+    return from( updateDoc(tripDocRef, updateKeyValuePairs) );
   }
 
   updateItineraryItemDetails(itemId:string, tripId:string ,updateKeyValuePairs: {})
-      : Observable<DocumentReference<IItem>>{
+      : Observable<void>{
     const itemDocRef = doc(this.firestore, `trips/${tripId}/itinerary/${itemId}`);
-    return from( updateDoc(itemDocRef, updateKeyValuePairs) ) as unknown as Observable<DocumentReference<IItem>>;
+    return from( updateDoc(itemDocRef, updateKeyValuePairs) );
   }
 
   removeTrip(tripId:string): Observable<void>{
