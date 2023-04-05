@@ -3,14 +3,19 @@
     <form nz-form [formGroup]="loginForm">
         <nz-form-item class="px-8 pt-6">
             <nz-form-label [nzSpan]="6" nzFor="email" class=""><span class="font-medium text-lg">Email:</span></nz-form-label>
-            <nz-form-control nzSpan="14" class="py-2.5">
+            <nz-form-control nzSpan="14" class="py-2.5" nzHasFeedback [nzErrorTip]="userEmailErrorsTip">
                 <input nz-input name="email"
                        type="email"
                        id="email"
                        formControlName="email"
                        class="p-2.5 bg-background-color focus:outline-primary-color-highlight rounded-md">
             </nz-form-control>
+            <ng-template #userEmailErrorsTip let-control>
+                <ng-container *ngIf="control.hasError('required')">Email address is required.</ng-container>
+                <ng-container *ngIf="control.hasError('email')">Please enter a valid email address.</ng-container>
+            </ng-template>
         </nz-form-item>
+
         <nz-form-item class="px-8 pt-4">
             <nz-form-label [nzSpan]="6" nzFor="password" class=""><span class="font-medium text-lg">Password:</span></nz-form-label>
             <nz-form-control nzSpan="14" class="py-2.5">
