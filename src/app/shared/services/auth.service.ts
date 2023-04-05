@@ -1,21 +1,22 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {AngularFireAuth} from "@angular/fire/compat/auth";
-import { Router } from '@angular/router';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   userData: any;
-  constructor(
+  _isLoggedIn: boolean;
 
+  constructor(
       public angularFireAuth: AngularFireAuth,
-      public router: Router,
-      public ngZone: NgZone
   ) {
 
     this.angularFireAuth.authState.subscribe( (user) => {
       this.userData = user;
     })
+
+      this._isLoggedIn = false;
   }
   loginUser(email:string, password: string) {
     return this.angularFireAuth.signInWithEmailAndPassword(email, password)
@@ -36,4 +37,7 @@ export class AuthService {
         })
   }
 
+  public get isLoggedIn(){
+      return this._isLoggedIn;
+  }
 }
