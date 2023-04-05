@@ -1,10 +1,14 @@
 <div class="w-full bg-background-color h-full">
     <h1 class="text-4xl font-black pl-8 pt-16 pb-8">Login</h1>
-    <form nz-form>
+    <form nz-form [formGroup]="loginForm">
         <nz-form-item class="px-8 pt-6">
             <nz-form-label [nzSpan]="6" nzFor="email" class=""><span class="font-medium text-lg">Email:</span></nz-form-label>
             <nz-form-control nzSpan="14" class="py-2.5">
-                <input nz-input name="email" type="email" id="email" [(ngModel)]="userEmail" class="p-2.5 bg-background-color focus:outline-primary-color-highlight rounded-md">
+                <input nz-input name="email"
+                       type="email"
+                       id="email"
+                       formControlName="email"
+                       class="p-2.5 bg-background-color focus:outline-primary-color-highlight rounded-md">
             </nz-form-control>
         </nz-form-item>
         <nz-form-item class="px-8 pt-4">
@@ -13,7 +17,7 @@
                 <input nz-input name="email"
                        type="password"
                        id="password"
-                       [(ngModel)]="userPassword"
+                       formControlName="password"
                        class="p-2.5 bg-background-color rounded-md">
             </nz-form-control>
         </nz-form-item>
@@ -21,12 +25,13 @@
             <nz-form-item>
                 <nz-form-control class="px-8 py-2 mt-8">
                     <button nz-button nzType="primary"
-                            (click)="log(userEmail,userPassword)"
+                            (click)="log(userLoginDetails.email, userLoginDetails.password)"
                             class="h-full w-full p-3 rounded-md
                              bg-primary-color
                              hover:bg-primary-color-highlight
-                             border-0
-                    ">
+                             border-0"
+                            [disabled]="!loginForm.valid"
+                    >
                                 <span class="font-medium">Submit</span>
 
                     </button>
