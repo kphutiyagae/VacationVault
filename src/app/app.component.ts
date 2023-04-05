@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {AngularFirestore} from "@angular/fire/compat/firestore";
+import {Component} from '@angular/core';
+import {ApiService} from "./shared/services/api/api.service";
 
 @Component({
   selector: 'app-root',
@@ -8,5 +8,9 @@ import {AngularFirestore} from "@angular/fire/compat/firestore";
 })
 export class AppComponent {
   title = 'vacation-vault';
+
+  constructor( protected apiServ: ApiService) {
+
+  }
 
 }

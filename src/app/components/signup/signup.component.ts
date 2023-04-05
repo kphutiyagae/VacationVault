@@ -7,8 +7,16 @@ import { AuthService} from "../../shared/services/auth.service";
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent {
-constructor() {
+  userEmail = '';
+  userPassword = '';
+constructor(protected auth: AuthService) {
+
 }
 
 ngOnInit() {}
+
+  handleSignup(a: string, b: string){
+    //console.log('Form Data : ', { 'email': a, 'password' : b})
+    this.auth.signupUser(a,b);
+  }
 }
