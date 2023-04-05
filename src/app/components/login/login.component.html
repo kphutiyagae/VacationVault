@@ -1,21 +1,58 @@
-<p>login works!</p>
+<div class="w-full bg-background-color h-full">
+    <h1 class="text-4xl font-black pl-8 pt-16 pb-8">Login</h1>
+    <form nz-form>
+        <nz-form-item class="px-8 pt-6">
+            <nz-form-label [nzSpan]="6" nzFor="email" class=""><span class="font-medium text-lg">Email:</span></nz-form-label>
+            <nz-form-control nzSpan="14" class="py-2.5">
+                <input nz-input name="email" type="email" id="email" [(ngModel)]="userEmail" class="p-2.5 bg-background-color focus:outline-primary-color-highlight rounded-md">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="px-8 pt-4">
+            <nz-form-label [nzSpan]="6" nzFor="password" class=""><span class="font-medium text-lg">Password:</span></nz-form-label>
+            <nz-form-control nzSpan="14" class="py-2.5">
+                <input nz-input name="email"
+                       type="password"
+                       id="password"
+                       [(ngModel)]="userPassword"
+                       class="p-2.5 bg-background-color rounded-md">
+            </nz-form-control>
+        </nz-form-item>
 
-<form nz-form>
-    <nz-form-item>
-        <nz-form-label [nzSpan]="6" nzFor="email" >Email</nz-form-label>
-        <nz-form-control nzSpan="14">
-            <input nz-input name="email" type="email" id="email" [(ngModel)]="userEmail">
-        </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-        <nz-form-label [nzSpan]="6" nzFor="password" >Password</nz-form-label>
-        <nz-form-control nzSpan="14">
-            <input nz-input name="password" type="password" id="password" [(ngModel)]="userPassword">
-        </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-        <nz-form-control>
-            <button nz-button nzType="primary" (click)="log(userEmail,userPassword)">Submit</button>
-        </nz-form-control>
-    </nz-form-item>
-</form>
+            <nz-form-item>
+                <nz-form-control class="px-8 py-2 mt-8">
+                    <button nz-button nzType="primary"
+                            (click)="log(userEmail,userPassword)"
+                            class="h-full w-full p-3 rounded-md
+                             bg-primary-color
+                             hover:bg-primary-color-highlight
+                             border-0
+                    ">
+                                <span class="font-medium">Submit</span>
+
+                    </button>
+                </nz-form-control>
+            </nz-form-item>
+        <div class="w-full flex flex-row items-center py-6">
+            <p class="ml-8 font-medium text-gray-600">Don't have an account yet? <a class="font-bold hover:primary-color-highlight" routerLink="/signup">Signup</a> </p>
+        </div>
+    </form>
+</div>
+<!--<form nz-form>-->
+<!--    <nz-form-item>-->
+<!--        <nz-form-label [nzSpan]="6" nzFor="email" >Email</nz-form-label>-->
+<!--        <nz-form-control nzSpan="14">-->
+<!--            <input nz-input name="email" type="email" id="email" [(ngModel)]="userEmail">-->
+<!--        </nz-form-control>-->
+<!--    </nz-form-item>-->
+<!--    <nz-form-item>-->
+<!--        <nz-form-label [nzSpan]="6" nzFor="password" >Password</nz-form-label>-->
+<!--        <nz-form-control nzSpan="14">-->
+<!--            <input nz-input name="password" type="password" id="password" [(ngModel)]="userPassword">-->
+<!--        </nz-form-control>-->
+<!--    </nz-form-item>-->
+<!--    <nz-form-item>-->
+<!--        <nz-form-control>-->
+<!--            <button nz-button nzType="primary" (click)="log(userEmail,userPassword)">Submit</button>-->
+<!--        </nz-form-control>-->
+<!--    </nz-form-item>-->
+<!--</form>-->
