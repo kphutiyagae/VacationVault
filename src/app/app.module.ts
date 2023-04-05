@@ -23,8 +23,11 @@ import {AuthService} from "./shared/services/auth.service";
 import {NzFormModule} from "ng-zorro-antd/form";
 import {NzInputModule} from "ng-zorro-antd/input";
 import {NzButtonModule} from "ng-zorro-antd/button";
-import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {FIREBASE_OPTIONS} from "@angular/fire/compat";
+import { HomeComponent } from './components/home/home.component';
+import { TripComponent } from './components/trip/trip.component';
+import { PageErrorComponent } from './components/page-error/page-error.component';
+import { ItemInfoComponent } from './components/item-info/item-info.component';
 
 registerLocaleData(uk);
 
@@ -33,7 +36,11 @@ registerLocaleData(uk);
     AppComponent,
     LoginComponent,
     SignupComponent,
-    DashboardComponent
+    DashboardComponent,
+    HomeComponent,
+    TripComponent,
+    PageErrorComponent,
+    ItemInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -58,6 +65,6 @@ registerLocaleData(uk);
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(db: AngularFirestore) {
+  constructor() {
   }
 }
