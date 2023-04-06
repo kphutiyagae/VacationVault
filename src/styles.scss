@@ -2,3 +2,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#login_hero-image{
+  background-image: url("./assets/images/pexels-josh-hild-2422265.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}

@@ -38,9 +38,9 @@ export class LoginComponent {
 
   }
 
-  log(a: string, b: string){
+    attemptLogin(email: string, password: string){
 
-    this.auth.loginUser(a,b).then( authRequest => {
+    this.auth.loginUser(email,password).then(authRequest => {
 
         if(authRequest.result === 'error'){
             this.modal.error({
