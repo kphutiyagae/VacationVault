@@ -42,13 +42,27 @@ export class AuthService {
         });
   }
 
-  signupUser(email:string,password:string) {
+  signupUser(email:string,password:string): Promise<IAuthResult> {
     return this.angularFireAuth.createUserWithEmailAndPassword(email,password)
         .then( (result) => {
-          window.alert('Welcome to the site' + result?.user?.toJSON())
+            const successLoginObject: IAuthResult = {
+                result: 'success',
+                additional_info: {
+                    'user_id': result.user?.uid,
+                    'user_JWT': result.user?.getIdTokenResult().then( token => {return token})
+                }
+            }
+            this._isLoggedIn = true;
+
+            return successLoginObject;
+
         })
         .catch( (error) => {
-          window.alert(error)
+            const errorObject: IAuthResult = {
+                result: 'error',
+                additional_info: error.message
+            }
+            return errorObject;
         })
   }
 

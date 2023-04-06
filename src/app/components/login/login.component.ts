@@ -34,9 +34,6 @@ export class LoginComponent {
               ])
       });
   }
-  ngOnInit(){
-
-  }
 
     attemptLogin(email: string, password: string){
 
@@ -51,7 +48,7 @@ export class LoginComponent {
         else{
             this.router.navigateByUrl('');
         }
-    } )
+    } ).catch( (error) => {})
 
   }
 
