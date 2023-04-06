@@ -25,7 +25,6 @@ export interface ITrip {
     user_id:string;
 }
 
-
 export interface ILoginRequest {
     userEmail:string;
     userPassword:string;
@@ -40,5 +39,10 @@ export interface ILoginRequest {
 
 export interface IError {
     message:string;
+    additional_info?: {}
+}
+
+export interface IAuthResult {
+    result: string;
     additional_info?: {}
 }

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {AuthService} from "../../shared/services/auth.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {NzModalService} from "ng-zorro-antd/modal";
+import {Router} from "@angular/router";
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -16,6 +18,9 @@ export class LoginComponent {
     loginForm: FormGroup;
   constructor(
       protected auth: AuthService,
+      protected modal: NzModalService,
+
+      private router: Router
   ) {
       this.loginForm = new FormGroup({
           email: new FormControl(this.userLoginDetails.email,
@@ -34,7 +39,20 @@ export class LoginComponent {
   }
 
   log(a: string, b: string){
-    //console.log('Form Data : ', { 'email': a, 'password' : b})
-    this.auth.loginUser(a,b)
-}
+
+    this.auth.loginUser(a,b).then( authRequest => {
+
+        if(authRequest.result === 'error'){
+            this.modal.error({
+                nzTitle: 'Login failed',
+                nzContent: 'The provided email/password combination is incorrect. Please check details and try again.'
+            })
+        }
+        else{
+            this.router.navigateByUrl('');
+        }
+    } )
+
+  }
+
 }

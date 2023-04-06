@@ -36,7 +36,7 @@
             <nz-form-item>
                 <nz-form-control class="px-8 py-2 mt-8">
                     <button nz-button nzType="primary"
-                            (click)="log(userLoginDetails.email, userLoginDetails.password)"
+                            (click)="log(loginForm.controls['email'].value, loginForm.controls['password'].value)"
                             class="h-full w-full p-3 rounded-md
                              bg-primary-color
                              hover:bg-primary-color-highlight

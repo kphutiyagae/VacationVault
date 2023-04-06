@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {AngularFireAuth} from "@angular/fire/compat/auth";
-
+import {IAuthResult} from "../../../models/types";
 @Injectable({
   providedIn: 'root'
 })
@@ -18,12 +18,27 @@ export class AuthService {
 
       this._isLoggedIn = false;
   }
-  loginUser(email:string, password: string) {
-    return this.angularFireAuth.signInWithEmailAndPassword(email, password)
+  loginUser(email:string, password: string): Promise<IAuthResult> {
+
+      return this.angularFireAuth.signInWithEmailAndPassword(email, password)
         .then( (result) => {
-          window.alert('Welcome ' + result.user?.toJSON());
+            const successLoginObject: IAuthResult = {
+                result: 'success',
+                additional_info: {
+                    'user_id': result.user?.uid,
+                    'user_JWT': result.user?.getIdTokenResult().then( token => {return token})
+                }
+            }
+
+            this._isLoggedIn = true;
+
+            return successLoginObject;
         }).catch( (error) => {
-          window.alert(error.message);
+            const errorObject: IAuthResult = {
+                result: 'error',
+                additional_info: error.message
+            }
+            return errorObject;
         });
   }
 
