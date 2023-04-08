@@ -1,1 +1,28 @@
+<app-nav-bar></app-nav-bar>
+<div class="h-screen
+            w-full
+            md:grid
+            md:grid-rows-5
+            md:grid-cols-12
+            ">
+    <div class="py-8 pl-8">
+        <h1 class="text-4xl font-bold ">My trips</h1>
+    </div>
+    <div>
+        <ng-container *ngIf="!(this.userTrips$ | async); else pageContent">
+        Loading.......
+        </ng-container>
+        <ng-template #pageContent >
+            <div class="bg-green-800">
+                <ul>
+                    <li *ngFor="let trip of (userTrips$ | async) ?? []">
+                        <p> Country : {{trip.country}}</p>
+                        <p> User ID : {{trip.user_id}}</p>
+                        <p> Trip Name : {{trip.name}}</p>
+                    </li>
+                </ul>
+            </div>
+        </ng-template>
+    </div>
+</div>
 <router-outlet></router-outlet>

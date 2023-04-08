@@ -28,6 +28,8 @@ import { HomeComponent } from './components/home/home.component';
 import { TripComponent } from './components/trip/trip.component';
 import { PageErrorComponent } from './components/page-error/page-error.component';
 import { ItemInfoComponent } from './components/item-info/item-info.component';
+import { NavBarComponent } from './UI/molecule/nav-bar/nav-bar.component';
+import {NzDropDownModule} from "ng-zorro-antd/dropdown";
 
 registerLocaleData(uk);
 
@@ -40,23 +42,25 @@ registerLocaleData(uk);
     HomeComponent,
     TripComponent,
     PageErrorComponent,
-    ItemInfoComponent
+    ItemInfoComponent,
+    NavBarComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
-    provideDatabase(() => getDatabase()),
-    provideFirestore(() => getFirestore()),
-    provideFunctions(() => getFunctions()),
-    NzFormModule,
-    NzInputModule,
-    NzButtonModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        provideFirebaseApp(() => initializeApp(environment.firebase)),
+        provideAuth(() => getAuth()),
+        provideDatabase(() => getDatabase()),
+        provideFirestore(() => getFirestore()),
+        provideFunctions(() => getFunctions()),
+        NzFormModule,
+        NzInputModule,
+        NzButtonModule,
+        NzDropDownModule,
+    ],
   providers: [
     {provide: FIREBASE_OPTIONS, useValue: environment.firebase},
     { provide: NZ_I18N, useValue: uk_UA },
