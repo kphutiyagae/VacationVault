@@ -3,11 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NZ_I18N } from 'ng-zorro-antd/i18n';
-import { uk_UA } from 'ng-zorro-antd/i18n';
+import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
-import uk from '@angular/common/locales/uk';
-import { FormsModule } from '@angular/forms';
+import en from '@angular/common/locales/en';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
@@ -28,8 +27,9 @@ import { HomeComponent } from './components/home/home.component';
 import { TripComponent } from './components/trip/trip.component';
 import { PageErrorComponent } from './components/page-error/page-error.component';
 import { ItemInfoComponent } from './components/item-info/item-info.component';
+import {NzModalModule} from "ng-zorro-antd/modal";
 
-registerLocaleData(uk);
+registerLocaleData(en);
 
 @NgModule({
   declarations: [
@@ -56,10 +56,12 @@ registerLocaleData(uk);
     NzFormModule,
     NzInputModule,
     NzButtonModule,
+    ReactiveFormsModule,
+    NzModalModule
   ],
   providers: [
     {provide: FIREBASE_OPTIONS, useValue: environment.firebase},
-    { provide: NZ_I18N, useValue: uk_UA },
+    { provide: NZ_I18N, useValue: en_US },
       AuthService
   ],
   bootstrap: [AppComponent]
