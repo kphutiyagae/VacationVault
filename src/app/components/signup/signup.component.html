@@ -1,22 +1,66 @@
-<p>signup works!</p>
+<!-- Code for tooltips in nzForm from: https://stackblitz.com/run?file=src%2Fapp%2Fapp.component.ts-->
+<div class="w-full bg-background-color grid grid-cols-12 grid-rows-10 h-full">
+    <div class="h-full w-full flex flex-col col-start-1 col-end-13 row-start-1 row-end-3 md:col-end-8 lg:col-end-6">
+        <div class="flex flex-col justify-center items-center pt-20 pb-10 md:pb-2">
+            <div class="w-24 h-24 bg-primary-color rounded-full"></div>
+        </div>
+        <div class="w-full md:pt-5">
+            <h1 class="text-4xl font-black pl-8 pt-6 pb-6">Signup</h1>
+            <p class="text-current font-light ml-8 pb-6 text-gray-500 md:pb-8">Welcome, let's get you started on your travels</p>
+        </div>
+        <form nz-form [formGroup]="signupForm" class="w-full">
+            <nz-form-item class="px-8 pt-6 flex flex-col md:pt-8 md:h-1/3">
+                <nz-form-label nzFor="email" class="w-full flex justify-start"><span class="font-medium text-lg">Email</span></nz-form-label>
+                <nz-form-control class="py-2.5 w-full" nzHasFeedback [nzErrorTip]="userEmailErrorsTip">
+                    <input nz-input name="email"
+                           type="email"
+                           id="email"
+                           formControlName="email"
+                           class="p-2.5 bg-background-color focus:outline-primary-color-highlight rounded-md">
+                </nz-form-control>
+                <ng-template #userEmailErrorsTip let-control>
+                    <ng-container *ngIf="control.hasError('required')">Email address is required.</ng-container>
+                    <ng-container *ngIf="control.hasError('email')">Please enter a valid email address.</ng-container>
+                </ng-template>
+            </nz-form-item>
 
+            <nz-form-item class="px-8 pt-4 flex flex-col md:pt-8 md:h-1/3">
+                <nz-form-label
+                        nzFor="password"
+                        class="w-full flex justify-start"><span class="font-medium text-lg">Password</span></nz-form-label>
+                <nz-form-control class="py-2.5 w-full" nzHasFeedback [nzErrorTip]="userPasswordErrorsTip">
+                    <input nz-input name="password"
+                           type="password"
+                           id="password"
+                           formControlName="password"
+                           class="p-2.5 bg-background-color rounded-md">
+                </nz-form-control>
+                <ng-template #userPasswordErrorsTip let-control>
+                    <ng-container *ngIf="control.hasError('required')">Password is required.</ng-container>
+                </ng-template>
+            </nz-form-item>
 
-<form nz-form>
-    <nz-form-item>
-        <nz-form-label [nzSpan]="6" nzFor="email" >Email</nz-form-label>
-        <nz-form-control nzSpan="14">
-            <input nz-input name="email" type="email" id="email" [(ngModel)]="userEmail">
-        </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-        <nz-form-label [nzSpan]="6" nzFor="password" >Password</nz-form-label>
-        <nz-form-control nzSpan="14">
-            <input nz-input name="password" type="password" id="password" [(ngModel)]="userPassword">
-        </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-        <nz-form-control>
-            <button nz-button nzType="primary" (click)="handleSignup(userEmail,userPassword)">Submit</button>
-        </nz-form-control>
-    </nz-form-item>
-</form>
+            <nz-form-item>
+                <nz-form-control class="px-8 py-2 mt-8 md:h-1/3 md:py-8">
+                    <button nz-button nzType="primary"
+                            (click)="attemptSignup(signupForm.controls['email'].value, signupForm.controls['password'].value)"
+                            class="h-full w-full p-3 rounded-md
+                             bg-primary-color
+                             hover:bg-primary-color-highlight
+                             border-0 disabled:bg-gray-200"
+                            [disabled]="!signupForm.valid"
+                    >
+                        <span class="font-medium">Submit</span>
+
+                    </button>
+                </nz-form-control>
+            </nz-form-item>
+            <div class="w-full flex flex-row items-center py-6 justify-center">
+                <p class="ml-8 md:ml-0 font-medium text-gray-600">Already have an account? <a class="font-bold hover:primary-color-highlight" routerLink="/login">login here</a> </p>
+            </div>
+        </form>
+    </div>
+    <div id="signup_hero-image" class="hidden md:block md:row-start-1 md:row-end-11 md:col-start-8 lg:col-start-6 md:col-end-13">
+
+    </div>
+</div>
