@@ -12,3 +12,4 @@ environments.ts
 
 
 *.txt
+/src/app/environments/environment.ts
