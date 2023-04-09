@@ -31,6 +31,7 @@ import {NzModalModule} from "ng-zorro-antd/modal";
 import {NavBarComponent} from "./UI/molecule/nav-bar/nav-bar.component";
 import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
 import {TripCardComponent} from "./UI/molecule/trip-card/trip-card.component";
+import {NzDropDownModule} from "ng-zorro-antd/dropdown";
 
 registerLocaleData(en);
 
@@ -63,7 +64,8 @@ registerLocaleData(en);
         NzButtonModule,
         ReactiveFormsModule,
         NzModalModule,
-        NgxSkeletonLoaderModule
+        NgxSkeletonLoaderModule,
+        NzDropDownModule
     ],
   providers: [
     {provide: FIREBASE_OPTIONS, useValue: environment.firebase},
