@@ -28,20 +28,22 @@ import { TripComponent } from './components/trip/trip.component';
 import { PageErrorComponent } from './components/page-error/page-error.component';
 import { ItemInfoComponent } from './components/item-info/item-info.component';
 import {NzModalModule} from "ng-zorro-antd/modal";
+import {NavBarComponent} from "./UI/molecule/nav-bar/nav-bar.component";
 
 registerLocaleData(en);
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    SignupComponent,
-    DashboardComponent,
-    HomeComponent,
-    TripComponent,
-    PageErrorComponent,
-    ItemInfoComponent
-  ],
+    declarations: [
+        AppComponent,
+        LoginComponent,
+        SignupComponent,
+        DashboardComponent,
+        HomeComponent,
+        TripComponent,
+        PageErrorComponent,
+        ItemInfoComponent,
+        NavBarComponent
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,

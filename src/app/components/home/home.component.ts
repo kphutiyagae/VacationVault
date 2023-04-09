@@ -1,8 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Observable} from "rxjs";
 import {ITrip} from "../../../models/types";
 import {ApiService} from "../../shared/services/api/api.service";
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
