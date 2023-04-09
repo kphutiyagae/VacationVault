@@ -29,6 +29,8 @@ import { PageErrorComponent } from './components/page-error/page-error.component
 import { ItemInfoComponent } from './components/item-info/item-info.component';
 import {NzModalModule} from "ng-zorro-antd/modal";
 import {NavBarComponent} from "./UI/molecule/nav-bar/nav-bar.component";
+import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
+import {TripCardComponent} from "./UI/molecule/trip-card/trip-card.component";
 
 registerLocaleData(en);
 
@@ -42,25 +44,27 @@ registerLocaleData(en);
         TripComponent,
         PageErrorComponent,
         ItemInfoComponent,
-        NavBarComponent
+        NavBarComponent,
+        TripCardComponent
     ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
-    provideDatabase(() => getDatabase()),
-    provideFirestore(() => getFirestore()),
-    provideFunctions(() => getFunctions()),
-    NzFormModule,
-    NzInputModule,
-    NzButtonModule,
-    ReactiveFormsModule,
-    NzModalModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        provideFirebaseApp(() => initializeApp(environment.firebase)),
+        provideAuth(() => getAuth()),
+        provideDatabase(() => getDatabase()),
+        provideFirestore(() => getFirestore()),
+        provideFunctions(() => getFunctions()),
+        NzFormModule,
+        NzInputModule,
+        NzButtonModule,
+        ReactiveFormsModule,
+        NzModalModule,
+        NgxSkeletonLoaderModule
+    ],
   providers: [
     {provide: FIREBASE_OPTIONS, useValue: environment.firebase},
     { provide: NZ_I18N, useValue: en_US },

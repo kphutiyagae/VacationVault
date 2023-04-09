@@ -6,21 +6,16 @@
             md:grid-cols-12
             ">
     <div class="py-8 pl-8">
-        <h1 class="text-4xl font-bold ">My trips</h1>
+        <h1 class="text-4xl font-bold">My trips</h1>
     </div>
     <div>
+        <h2 class="font-light ml-8 pb-4 text-md text-gray-600">Upcoming Trips</h2>
         <ng-container *ngIf="!(this.userTrips$ | async); else pageContent">
-        Loading.......
+            <ngx-skeleton-loader count="3" [theme]="{height: '100px', width: '95%', marginLeft: '0.70rem'}"></ngx-skeleton-loader>
         </ng-container>
-        <ng-template #pageContent >
-            <div class="bg-green-800">
-                <ul>
-                    <li *ngFor="let trip of (userTrips$ | async) ?? []">
-                        <p> Country : {{trip.country}}</p>
-                        <p> User ID : {{trip.user_id}}</p>
-                        <p> Trip Name : {{trip.name}}</p>
-                    </li>
-                </ul>
+        <ng-template #pageContent>
+            <div class="" *ngFor="let tripObject of (userTrips$ | async)">
+                <app-trip-card [trip]="tripObject"></app-trip-card>
             </div>
         </ng-template>
     </div>
