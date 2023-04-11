@@ -18,6 +18,65 @@
                 nz-icon="add" nzShape="circle" nzSize="large" class="flex justify-center items-center">
             <span nz-icon nzType="plus"></span>
         </button>
+        <nz-modal [(nzVisible)]="isAddingtrip"
+                  nzTitle="Add Trip"
+                  (nzOnCancel)="handleModalCancel()">
+            <ng-container *nzModalContent>
+                <form nz-form [formGroup]="addTripForm" class="w-full">
+                    <nz-form-item>
+                        <nz-form-label nzFor="name">Name</nz-form-label>
+                        <nz-form-control nzHasFeedback>
+                            <input
+                            type="text"
+                            id="name"
+                            formControlName="name"
+                            class="bg-background-color p-1.5 w-full"
+                            >
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label nzFor="description">Description</nz-form-label>
+                        <nz-form-control nzHasFeedback>
+                            <input
+                                    type="text"
+                                    id="description"
+                                    formControlName="description"
+                                    class="bg-background-color p-1.5 w-full h-28 "
+                            >
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label nzFor="country">Country</nz-form-label>
+                        <nz-form-control nzHasFeedback>
+                            <nz-select nzSize="default" formControlName="country"
+                                       nzAllowClear
+                                       nzPlaceHolder="Select Country"
+                                       >
+                                <nz-option *ngFor="let country of countryList"
+                                           [nzValue]="country"
+                                           [nzLabel]="country"></nz-option>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label nzFor="trip_start" >Start Date</nz-form-label>
+                        <nz-form-control nzHasFeedback >
+                            <nz-date-picker
+                                    formControlName="trip_start"
+                                    nzAllowClear id="trip_start"></nz-date-picker>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label nzFor="trip_end" >End Date</nz-form-label>
+                        <nz-form-control nzHasFeedback>
+                            <nz-date-picker
+                                    formControlName="trip_end"
+                                    nzAllowClear id="trip_end"></nz-date-picker>
+                        </nz-form-control>
+                    </nz-form-item>
+                </form>
+            </ng-container>
+        </nz-modal>
     </div>
     <div
     class="

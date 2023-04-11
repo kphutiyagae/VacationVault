@@ -36,6 +36,8 @@ import {NzListModule} from "ng-zorro-antd/list";
 import {NzIconModule} from "ng-zorro-antd/icon";
 import { CalendarCardComponent } from './UI/molecule/calendar-card/calendar-card.component';
 import {NzCalendarModule} from "ng-zorro-antd/calendar";
+import {NzSelectModule} from "ng-zorro-antd/select";
+import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
 
 registerLocaleData(en);
 
@@ -73,7 +75,9 @@ registerLocaleData(en);
         NzDropDownModule,
         NzListModule,
         NzIconModule,
-        NzCalendarModule
+        NzCalendarModule,
+        NzSelectModule,
+        NzDatePickerModule
     ],
   providers: [
     {provide: FIREBASE_OPTIONS, useValue: environment.firebase},
