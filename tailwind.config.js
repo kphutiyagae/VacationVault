@@ -8,7 +8,9 @@ module.exports = {
       colors: {
         'primary-color': '#220678ff',
         'primary-color-highlight': '#3c19da',
-        'background-color': '#F6F6F6ff'
+        'background-color': '#F6F6F6ff',
+        'card-background-color': '#F0ECFE',
+
       },
       gridTemplateRows: {
         10: "repeat(10, minmax(0,1fr))",

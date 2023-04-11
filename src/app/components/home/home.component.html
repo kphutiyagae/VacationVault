@@ -8,15 +8,42 @@
     <div class="py-8 pl-8">
         <h1 class="text-4xl font-bold">My trips</h1>
     </div>
+    <div class="pl-7 pt-2.5 pb-4">
+        <button nz-button nzType="primary"
+                (click)="handleAddTrip()"
+                nz-icon="add" nzShape="circle" nzSize="large" class="flex justify-center items-center">
+            <span nz-icon nzType="plus"></span>
+        </button>
+    </div>
     <div>
         <h2 class="font-light ml-8 pb-4 text-md text-gray-600">Upcoming Trips</h2>
         <ng-container *ngIf="!(this.userTrips$ | async); else pageContent">
             <ngx-skeleton-loader count="3" [theme]="{height: '100px', width: '95%', marginLeft: '0.70rem'}"></ngx-skeleton-loader>
         </ng-container>
         <ng-template #pageContent>
-            <div class="" *ngFor="let tripObject of (userTrips$ | async)">
-                <app-trip-card [trip]="tripObject"></app-trip-card>
-            </div>
+            <nz-list nzItemLayout="vertical" class="overflow-scroll h-80">
+                <nz-list-item *ngFor=" let trip of (this.userTrips$ | async)" class="drop-shadow-md pl-6 ml-2 mb-1.5 w-[95%] rounded-md">
+                    <nz-list-item-meta>
+                        <nz-list-item-meta-title>{{trip?.name}}</nz-list-item-meta-title>
+                        <nz-list-item-meta-description>{{trip?.country}}</nz-list-item-meta-description>
+                    </nz-list-item-meta>
+                </nz-list-item>
+            </nz-list>
+
+        </ng-template>
+    </div>
+    <div>
+        <h2 class="font-light ml-8 pb-4 text-md text-gray-600">Recent Trips</h2>
+        <ng-container *ngIf="!(this.userTrips$ | async); else pageContent">
+            <ngx-skeleton-loader count="3" [theme]="{height: '100px', width: '95%', marginLeft: '0.70rem'}"></ngx-skeleton-loader>
+        </ng-container>
+        <ng-template #pageContent class="pt-3">
+            <nz-list-item *ngFor=" let trip of (this.userTrips$ | async)" class="drop-shadow-md pl-6 ml-2 mb-1.5 w-[95%] rounded-md">
+                <nz-list-item-meta>
+                    <nz-list-item-meta-title>{{trip?.name}}</nz-list-item-meta-title>
+                    <nz-list-item-meta-description>{{trip?.country}}</nz-list-item-meta-description>
+                </nz-list-item-meta>
+            </nz-list-item>
         </ng-template>
     </div>
 </div>
