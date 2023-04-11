@@ -34,6 +34,8 @@ import {TripCardComponent} from "./UI/molecule/trip-card/trip-card.component";
 import {NzDropDownModule} from "ng-zorro-antd/dropdown";
 import {NzListModule} from "ng-zorro-antd/list";
 import {NzIconModule} from "ng-zorro-antd/icon";
+import { CalendarCardComponent } from './UI/molecule/calendar-card/calendar-card.component';
+import {NzCalendarModule} from "ng-zorro-antd/calendar";
 
 registerLocaleData(en);
 
@@ -48,7 +50,8 @@ registerLocaleData(en);
         PageErrorComponent,
         ItemInfoComponent,
         NavBarComponent,
-        TripCardComponent
+        TripCardComponent,
+        CalendarCardComponent
     ],
     imports: [
         BrowserModule,
@@ -69,7 +72,8 @@ registerLocaleData(en);
         NgxSkeletonLoaderModule,
         NzDropDownModule,
         NzListModule,
-        NzIconModule
+        NzIconModule,
+        NzCalendarModule
     ],
   providers: [
     {provide: FIREBASE_OPTIONS, useValue: environment.firebase},

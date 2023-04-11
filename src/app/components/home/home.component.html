@@ -2,20 +2,30 @@
 <div class="h-screen
             w-full
             md:grid
-            md:grid-rows-5
+            md:grid-rows-12
             md:grid-cols-12
             ">
-    <div class="py-8 pl-8">
+    <div class="py-8 pl-8 md:row-start-1 md:row-end-1 md:col-start-1 md:col-end-6">
         <h1 class="text-4xl font-bold">My trips</h1>
     </div>
-    <div class="pl-7 pt-2.5 pb-4">
+    <div class="pl-7 pt-2.5 pb-4
+    md:row-start-2
+    md:row-end-2
+    md:col-start-1
+    md:col-end-6">
         <button nz-button nzType="primary"
                 (click)="handleAddTrip()"
                 nz-icon="add" nzShape="circle" nzSize="large" class="flex justify-center items-center">
             <span nz-icon nzType="plus"></span>
         </button>
     </div>
-    <div>
+    <div
+    class="
+    md:row-start-3
+    md:row-end-8
+    md:col-start-1
+    md:col-end-6"
+    >
         <h2 class="font-light ml-8 pb-4 text-md text-gray-600">Upcoming Trips</h2>
         <ng-container *ngIf="!(this.userTrips$ | async); else pageContent">
             <ngx-skeleton-loader count="3" [theme]="{height: '100px', width: '95%', marginLeft: '0.70rem'}"></ngx-skeleton-loader>
@@ -32,8 +42,13 @@
 
         </ng-template>
     </div>
-    <div>
-        <h2 class="font-light ml-8 pb-4 text-md text-gray-600">Recent Trips</h2>
+    <div class="
+    md:row-start-8
+    md:row-end-13
+    md:col-start-1
+    md:col-end-6">
+
+        <h2 class="font-light ml-8 pb-4 text-md text-gray-600">Trip History</h2>
         <ng-container *ngIf="!(this.userTrips$ | async); else pageContent">
             <ngx-skeleton-loader count="3" [theme]="{height: '100px', width: '95%', marginLeft: '0.70rem'}"></ngx-skeleton-loader>
         </ng-container>
@@ -45,6 +60,19 @@
                 </nz-list-item-meta>
             </nz-list-item>
         </ng-template>
+    </div>
+    <div class="
+     hidden
+     md:block row-start-1
+     row-end-13
+     col-start-6 col-end-13 flex flex-col justify-center items-center">
+        <div class="w-[90%] p-5 md:ml-5 md:mt-12">
+            <nz-calendar [nzFullscreen]="false"></nz-calendar>
+        </div>
+        <div class="w-[90%] p-5 md:mt-12 md:ml-5">
+            <app-trip-card></app-trip-card>
+        </div>
+
     </div>
 </div>
 <router-outlet></router-outlet>
