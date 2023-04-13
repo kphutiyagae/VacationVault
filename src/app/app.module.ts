@@ -28,6 +28,7 @@ import { TripComponent } from './components/trip/trip.component';
 import { PageErrorComponent } from './components/page-error/page-error.component';
 import { ItemInfoComponent } from './components/item-info/item-info.component';
 import {NzModalModule} from "ng-zorro-antd/modal";
+import { StoreModule } from '@ngrx/store';
 
 registerLocaleData(en);
 
@@ -57,7 +58,8 @@ registerLocaleData(en);
     NzInputModule,
     NzButtonModule,
     ReactiveFormsModule,
-    NzModalModule
+    NzModalModule,
+    StoreModule.forRoot({}, {})
   ],
   providers: [
     {provide: FIREBASE_OPTIONS, useValue: environment.firebase},

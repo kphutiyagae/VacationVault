@@ -116,5 +116,11 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "f3dc1236-e116-46d0-af7e-c1bd4b02a0fb",
+    "schematicCollections": [
+      "@ngrx/schematics"
+    ]
   }
 }
