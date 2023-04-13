@@ -13,18 +13,16 @@ const routes: Routes = [
       path: '',
       component: HomeComponent,
       canActivate: [AuthGuard],
-      children: [
-
-          {
-              path: 'trip/:tripId',
-              component: TripComponent
-          },
-          {
-              path: 'trip/:tripId/:itemId',
-              component: ItemInfoComponent
-          }
-    ]
+      children: []
   },
+    {
+        path: 'trip/:tripId',
+        component: TripComponent
+    },
+    {
+        path: 'trip/:tripId/:itemId',
+        component: ItemInfoComponent
+    },
     {
         path: 'login',
         component: LoginComponent,

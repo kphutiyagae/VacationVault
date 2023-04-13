@@ -1,1 +1,144 @@
+<app-nav-bar></app-nav-bar>
+
 <router-outlet></router-outlet>
+
+<div class="h-screen
+            w-full
+            md:grid
+            md:grid-rows-12
+            md:grid-cols-12
+            ">
+    <div class="py-8 pl-8 md:row-start-1 md:row-end-1 md:col-start-1 md:col-end-6">
+        <h1 class="text-4xl font-bold">My trips</h1>
+
+        <ng-container *ngIf="userTripsID$ | async"></ng-container>
+    </div>
+    <div class="pl-7 pt-2.5 pb-4
+    md:row-start-2
+    md:row-end-2
+    md:col-start-1
+    md:col-end-6">
+        <button nz-button nzType="primary"
+                (click)="handleAddTrip()"
+                nz-icon="add" nzShape="circle" nzSize="large" class="flex justify-center items-center">
+            <span nz-icon nzType="plus"></span>
+        </button>
+        <nz-modal [(nzVisible)]="isAddingtrip"
+                  nzTitle="Add Trip"
+                  (nzOnOk)="addUserTrip()"
+                  [nzOkDisabled]="!addTripForm.valid"
+                  (nzOnCancel)="handleModalCancel()">
+            <ng-container *nzModalContent>
+                <form nz-form [formGroup]="addTripForm" class="w-full">
+                    <nz-form-item>
+                        <nz-form-label nzFor="name">Name</nz-form-label>
+                        <nz-form-control nzHasFeedback>
+                            <input
+                            type="text"
+                            id="name"
+                            formControlName="name"
+                            class="bg-background-color p-1.5 w-full"
+                            >
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label nzFor="description">Description</nz-form-label>
+                        <nz-form-control nzHasFeedback>
+                            <input
+                                    type="text"
+                                    id="description"
+                                    formControlName="description"
+                                    class="bg-background-color p-1.5 w-full h-28 "
+                            >
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label nzFor="country">Country</nz-form-label>
+                        <nz-form-control nzHasFeedback>
+                            <nz-select nzSize="default" formControlName="country"
+                                       nzAllowClear
+                                       nzPlaceHolder="Select Country"
+                                       >
+                                <nz-option *ngFor="let country of countryList"
+                                           [nzValue]="country"
+                                           [nzLabel]="country"></nz-option>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label nzFor="trip_start" >Start Date</nz-form-label>
+                        <nz-form-control nzHasFeedback >
+                            <nz-date-picker
+                                    formControlName="trip_start"
+                                    nzAllowClear id="trip_start"></nz-date-picker>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label nzFor="trip_end" >End Date</nz-form-label>
+                        <nz-form-control nzHasFeedback>
+                            <nz-date-picker
+                                    formControlName="trip_end"
+                                    nzAllowClear id="trip_end"></nz-date-picker>
+                        </nz-form-control>
+                    </nz-form-item>
+                </form>
+            </ng-container>
+        </nz-modal>
+    </div>
+    <div
+    class="
+    md:row-start-3
+    md:row-end-8
+    md:col-start-1
+    md:col-end-6"
+    >
+        <h2 class="font-light ml-8 pb-4 text-md text-gray-600">Upcoming Trips</h2>
+        <ng-container *ngIf="!(this.userTrips$ | async); else pageContent">
+            <ngx-skeleton-loader count="3" [theme]="{height: '100px', width: '95%', marginLeft: '0.70rem'}"></ngx-skeleton-loader>
+        </ng-container>
+        <ng-template #pageContent>
+            <nz-list nzItemLayout="vertical" class="overflow-scroll h-80">
+                <nz-list-item *ngFor=" let trip of (this.userTrips$ | async)"
+                              class="drop-shadow-md pl-6 ml-2 mb-1.5 w-[95%] rounded-md" (click)="handleTripClick(trip)">
+                    <nz-list-item-meta>
+                        <nz-list-item-meta-title>{{trip?.name}}</nz-list-item-meta-title>
+                        <nz-list-item-meta-description>{{trip?.country}}</nz-list-item-meta-description>
+                    </nz-list-item-meta>
+                </nz-list-item>
+            </nz-list>
+
+        </ng-template>
+    </div>
+    <div class="
+    md:row-start-8
+    md:row-end-13
+    md:col-start-1
+    md:col-end-6">
+
+        <h2 class="font-light ml-8 pb-4 text-md text-gray-600">Trip History</h2>
+        <ng-container *ngIf="!(this.userTrips$ | async); else pageContent">
+            <ngx-skeleton-loader count="3" [theme]="{height: '100px', width: '95%', marginLeft: '0.70rem'}"></ngx-skeleton-loader>
+        </ng-container>
+        <ng-template #pageContent class="pt-3">
+            <nz-list-item *ngFor=" let trip of (this.userTrips$ | async)" class="drop-shadow-md pl-6 ml-2 mb-1.5 w-[95%] rounded-md">
+                <nz-list-item-meta>
+                    <nz-list-item-meta-title>{{trip?.name}}</nz-list-item-meta-title>
+                    <nz-list-item-meta-description>{{trip?.country}}</nz-list-item-meta-description>
+                </nz-list-item-meta>
+            </nz-list-item>
+        </ng-template>
+    </div>
+    <div class="
+     hidden
+     md:block row-start-1
+     row-end-13
+     col-start-6 col-end-13 flex flex-col justify-center items-center">
+        <div class="w-[90%] p-5 md:ml-5 md:mt-12">
+            <nz-calendar [nzFullscreen]="false"></nz-calendar>
+        </div>
+        <div class="w-[90%] p-5 md:mt-12 md:ml-5">
+            <app-trip-card></app-trip-card>
+        </div>
+
+    </div>
+</div>
