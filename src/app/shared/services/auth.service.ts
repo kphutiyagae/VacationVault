@@ -69,4 +69,9 @@ export class AuthService {
   public get isLoggedIn(){
       return this._isLoggedIn;
   }
+
+  public get userId(){
+      //return this.userData.user_id;
+      return '0tol4ljZlRMbC3WMkt7ihklmwzT2';
+  }
 }

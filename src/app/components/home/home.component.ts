@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
-import {Observable} from "rxjs";
+import {first, Observable, switchMap} from "rxjs";
 import {ITrip} from "../../../models/types";
 import {ApiService} from "../../shared/services/api/api.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {country_list} from "../../utils/country-list";
 import {Router} from "@angular/router";
+import {AuthService} from "../../shared/services/auth.service";
 
 @Component({
   selector: 'app-home',
@@ -14,6 +15,8 @@ import {Router} from "@angular/router";
 export class HomeComponent{
 
   userTrips$: Observable<ITrip[]> | undefined;
+
+  userTripsID$: Observable<void> | undefined;
 
   isAddingtrip = false;
 
@@ -33,6 +36,7 @@ export class HomeComponent{
 
   constructor(
       private apiService: ApiService,
+      private authService: AuthService,
       private router: Router
   ) {
     this.countryList = country_list;
@@ -64,20 +68,29 @@ export class HomeComponent{
       trip_start: this.addTripForm.value.trip_start,
       trip_end: this.addTripForm.value.trip_end,
       country: this.addTripForm.value.country,
-      trip_id: '',
-      user_id: '',
+      user_id: this.authService.userId,
       itinerary_id: ''
     }
 
-    console.log(newTrip);
+    this.apiService.addTrip(newTrip)
+        .pipe(
+            first(),
+            switchMap(generatedTripId => {
+                newTrip.trip_id = generatedTripId;
+                return this.apiService.updateTripDetails(generatedTripId, newTrip)
+            }
+            )
+        ).subscribe()
 
   }
 
   handleModalCancel(): void {
     this.isAddingtrip = false;
+    this.addTripForm.reset();
   }
 
   handleTripClick(trip: ITrip){
+
     if(!trip) return;
     this.router.navigate([`trip/${trip.trip_id}`])
         .catch((err: Error) => {console.error(err)})
