@@ -4,6 +4,7 @@ import {ITrip} from "../../../models/types";
 import {ApiService} from "../../shared/services/api/api.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {country_list} from "../../utils/country-list";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -31,7 +32,8 @@ export class HomeComponent{
   countryList: undefined | string[];
 
   constructor(
-      private apiService: ApiService
+      private apiService: ApiService,
+      private router: Router
   ) {
     this.countryList = country_list;
 
@@ -51,12 +53,34 @@ export class HomeComponent{
 }
 
   handleAddTrip(){
-    console.log("Add trip clicked");
     this.isAddingtrip = true;
+  }
+
+  addUserTrip(){
+
+    const newTrip: ITrip = {
+      name: this.addTripForm.value.name,
+      description: this.addTripForm.value.description,
+      trip_start: this.addTripForm.value.trip_start,
+      trip_end: this.addTripForm.value.trip_end,
+      country: this.addTripForm.value.country,
+      trip_id: '',
+      user_id: '',
+      itinerary_id: ''
+    }
+
+    console.log(newTrip);
+
   }
 
   handleModalCancel(): void {
     this.isAddingtrip = false;
+  }
+
+  handleTripClick(trip: ITrip){
+    if(!trip) return;
+    this.router.navigate([`trip/${trip.trip_id}`])
+        .catch((err: Error) => {console.error(err)})
   }
 
 }

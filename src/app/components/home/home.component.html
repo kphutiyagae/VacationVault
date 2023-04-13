@@ -23,6 +23,8 @@
         </button>
         <nz-modal [(nzVisible)]="isAddingtrip"
                   nzTitle="Add Trip"
+                  (nzOnOk)="addUserTrip()"
+                  [nzOkDisabled]="!addTripForm.valid"
                   (nzOnCancel)="handleModalCancel()">
             <ng-container *nzModalContent>
                 <form nz-form [formGroup]="addTripForm" class="w-full">
@@ -94,7 +96,8 @@
         </ng-container>
         <ng-template #pageContent>
             <nz-list nzItemLayout="vertical" class="overflow-scroll h-80">
-                <nz-list-item *ngFor=" let trip of (this.userTrips$ | async)" class="drop-shadow-md pl-6 ml-2 mb-1.5 w-[95%] rounded-md">
+                <nz-list-item *ngFor=" let trip of (this.userTrips$ | async)"
+                              class="drop-shadow-md pl-6 ml-2 mb-1.5 w-[95%] rounded-md" (click)="handleTripClick(trip)">
                     <nz-list-item-meta>
                         <nz-list-item-meta-title>{{trip?.name}}</nz-list-item-meta-title>
                         <nz-list-item-meta-description>{{trip?.country}}</nz-list-item-meta-description>
