@@ -1,11 +1,14 @@
 import {Component} from '@angular/core';
-import {first, Observable, switchMap} from "rxjs";
+import {first, Observable, switchMap, tap} from "rxjs";
 import {ITrip} from "../../../models/types";
 import {ApiService} from "../../shared/services/api/api.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {country_list} from "../../utils/country-list";
 import {Router} from "@angular/router";
 import {AuthService} from "../../shared/services/auth.service";
+import {getUserTripData} from "../../store/actions/state.actions";
+import {Store} from "@ngrx/store";
+import {selectUserTrips, selectUserTripsState} from "../../store/selectors/state.selectors";
 
 @Component({
   selector: 'app-home',
@@ -15,8 +18,6 @@ import {AuthService} from "../../shared/services/auth.service";
 export class HomeComponent{
 
   userTrips$: Observable<ITrip[]> | undefined;
-
-  userTripsID$: Observable<void> | undefined;
 
   isAddingtrip = false;
 
@@ -37,11 +38,17 @@ export class HomeComponent{
   constructor(
       private apiService: ApiService,
       private authService: AuthService,
-      private router: Router
+      private router: Router,
+      private store: Store
   ) {
+
+    this.store.dispatch(getUserTripData())
+
     this.countryList = country_list;
 
-    this.userTrips$ = this.apiService.getAllTrips();
+    //this.userTrips$ = this.apiService.getAllTrips();
+
+    this.userTrips$ = this.store.select(selectUserTrips)
 
     this.addTripForm = new FormGroup({
       country: new FormControl (this.tripAddDetails.country,

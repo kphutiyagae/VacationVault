@@ -7,10 +7,10 @@ export const selectUserTripsState = createFeatureSelector<fromState.State>(
 
 export const selectUserTrips = createSelector(
     selectUserTripsState,
-    (state) => state.trips
+    (state) => state.userTrips
 )
 
 export const selectTripItems = createSelector(
     selectUserTripsState,
-    (state) => state.items
+    (state) => state.tripItems
 )

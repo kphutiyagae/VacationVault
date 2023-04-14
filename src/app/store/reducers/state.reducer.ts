@@ -6,13 +6,13 @@ import {IItem} from "../../models/user";
 export const stateFeatureKey = 'state';
 
 export interface State {
-  trips: ITrip[],
-  items: IItem[]
+  userTrips: ITrip[],
+  tripItems: IItem[]
 }
 
 export const initialState: State = {
-  trips: [],
-  items: []
+  userTrips: [],
+  tripItems: []
 };
 
 export const reducer = createReducer(
