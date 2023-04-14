@@ -39,6 +39,9 @@ import {NzCalendarModule} from "ng-zorro-antd/calendar";
 import {NzSelectModule} from "ng-zorro-antd/select";
 import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
 import { StoreModule } from '@ngrx/store';
+import * as fromState from './store/reducers/state.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { StateEffects } from './store/effects/state.effects';
 
 registerLocaleData(en);
 
@@ -78,7 +81,9 @@ registerLocaleData(en);
         NzIconModule,
         NzCalendarModule,
         NzSelectModule,
-        NzDatePickerModule
+        NzDatePickerModule,
+        StoreModule.forFeature(fromState.stateFeatureKey, fromState.reducer),
+        EffectsModule.forFeature([StateEffects])
     ],
   declarations: [
     AppComponent,
