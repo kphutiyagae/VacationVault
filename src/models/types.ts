@@ -42,8 +42,12 @@ export interface IError {
     message:string;
     additional_info?: {}
 }
+export interface IUserCredential {
+    'user_id': string,
+    'user_JWT': Promise<unknown> | string
+}
 
 export interface IAuthResult {
     result: string;
-    additional_info?: {}
+    additional_info?: IUserCredential
 }

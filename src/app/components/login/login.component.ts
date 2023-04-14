@@ -48,7 +48,15 @@ export class LoginComponent {
         else{
             this.router.navigateByUrl('');
         }
-    } ).catch( (error) => {})
+    } ).catch( (error) => {
+
+        console.error(error);
+
+        this.modal.error({
+            nzTitle: 'Login failed',
+            nzContent: 'An error on our side occurred. Please try again.'
+        })
+    })
 
   }
 

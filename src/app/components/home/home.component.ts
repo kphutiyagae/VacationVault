@@ -9,6 +9,7 @@ import {AuthService} from "../../shared/services/auth.service";
 import {getUserTripData} from "../../store/actions/state.actions";
 import {Store} from "@ngrx/store";
 import {selectUserTrips} from "../../store/selectors/state.selectors";
+import {getUserId} from "../../utils/credentials";
 
 @Component({
   selector: 'app-home',
@@ -73,7 +74,7 @@ export class HomeComponent{
       trip_start: this.addTripForm.value.trip_start,
       trip_end: this.addTripForm.value.trip_end,
       country: this.addTripForm.value.country,
-      user_id: this.authService.userId,
+      user_id: getUserId() ?? '',
       itinerary_id: ''
     }
 

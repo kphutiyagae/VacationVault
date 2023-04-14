@@ -45,6 +45,12 @@ constructor(protected auth: AuthService,
       else{
         this.router.navigateByUrl('');
       }
-    } ).catch( error => {})
+    } ).catch( error => {
+      console.error(error);
+      this.modal.error({
+        nzTitle: 'Signup failed',
+        nzContent: 'Oops! something went wrong on our side. Please try again.'
+      })
+    })
   }
 }
