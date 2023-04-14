@@ -6,7 +6,10 @@ node_modules
 *-debug.log
 .runtimeconfig.json
 
-src/app/enviroments/*
+src/app/enviroments/**.*
+
 environments.ts
 
+
 *.txt
+/src/app/environments/environment.ts

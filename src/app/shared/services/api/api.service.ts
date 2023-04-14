@@ -10,7 +10,7 @@ import {
   deleteDoc,
   updateDoc
 } from "@angular/fire/firestore";
-import {from, Observable, switchMap} from "rxjs";
+import {from, Observable, of, switchMap} from "rxjs";
 
 import {IItem} from "../../../models/user";
 
@@ -35,7 +35,7 @@ export class ApiService {
   addTrip(trip: ITrip): Observable<string>{
     const tripCollection = collection(this.firestore, 'trips');
     return from(addDoc(tripCollection, trip)).pipe(
-        switchMap( reference => reference.id)
+        switchMap( reference => of(reference.id))
     )
   }
 
@@ -78,7 +78,5 @@ export class ApiService {
     const itemDocRef = doc(this.firestore, `trips/${tripId}/itinerary/${itemId}`);
     return from(deleteDoc(itemDocRef));
   }
-
-
 
 }

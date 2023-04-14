@@ -23,6 +23,7 @@ export interface ITrip {
     trip_end:Date;
     trip_start:Date;
     user_id:string;
+    trip_id?:string;
 }
 
 export interface ILoginRequest {

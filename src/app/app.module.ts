@@ -28,11 +28,58 @@ import { TripComponent } from './components/trip/trip.component';
 import { PageErrorComponent } from './components/page-error/page-error.component';
 import { ItemInfoComponent } from './components/item-info/item-info.component';
 import {NzModalModule} from "ng-zorro-antd/modal";
+import {NavBarComponent} from "./UI/molecule/nav-bar/nav-bar.component";
+import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
+import {TripCardComponent} from "./UI/molecule/trip-card/trip-card.component";
+import {NzDropDownModule} from "ng-zorro-antd/dropdown";
+import {NzListModule} from "ng-zorro-antd/list";
+import {NzIconModule} from "ng-zorro-antd/icon";
+import { CalendarCardComponent } from './UI/molecule/calendar-card/calendar-card.component';
+import {NzCalendarModule} from "ng-zorro-antd/calendar";
+import {NzSelectModule} from "ng-zorro-antd/select";
+import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
 import { StoreModule } from '@ngrx/store';
 
 registerLocaleData(en);
 
 @NgModule({
+    declarations: [
+        AppComponent,
+        LoginComponent,
+        SignupComponent,
+        DashboardComponent,
+        HomeComponent,
+        TripComponent,
+        PageErrorComponent,
+        ItemInfoComponent,
+        NavBarComponent,
+        TripCardComponent,
+        CalendarCardComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        provideFirebaseApp(() => initializeApp(environment.firebase)),
+        provideAuth(() => getAuth()),
+        provideDatabase(() => getDatabase()),
+        provideFirestore(() => getFirestore()),
+        provideFunctions(() => getFunctions()),
+        NzFormModule,
+        NzInputModule,
+        NzButtonModule,
+        ReactiveFormsModule,
+        NzModalModule,
+        NgxSkeletonLoaderModule,
+        NzDropDownModule,
+        NzListModule,
+        NzIconModule,
+        NzCalendarModule,
+        NzSelectModule,
+        NzDatePickerModule
+    ],
   declarations: [
     AppComponent,
     LoginComponent,
