@@ -13,9 +13,9 @@ export const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
-  on(StateActions.loadStates, state => state),
-  on(StateActions.loadStatesSuccess, (state, action) => state),
-  on(StateActions.loadStatesFailure, (state, action) => state),
+  on(StateActions.getUserTripData, state => state),
+  on(StateActions.getUserTripDataSuccess, (state, action) => state),
+  on(StateActions.getUserTripDataFailure, (state, action) => state),
 );
 
 export const stateFeature = createFeature({

@@ -1,15 +1,16 @@
 import { createAction, props } from '@ngrx/store';
+import {IError, ITrip} from "../../../models/types";
 
-export const loadStates = createAction(
-  '[State] Load States'
+export const getUserTripData = createAction(
+  '[State] Get User Trips Data'
 );
 
-export const loadStatesSuccess = createAction(
-  '[State] Load States Success',
-  props<{ data: any }>()
+export const getUserTripDataSuccess = createAction(
+  '[State] Get User Trips Data Success',
+  props<{ userTrips: ITrip[] }>()
 );
 
-export const loadStatesFailure = createAction(
-  '[State] Load States Failure',
-  props<{ error: any }>()
+export const getUserTripDataFailure = createAction(
+  '[State] Get User Trips Data Failure',
+  props<{ error: IError }>()
 );
