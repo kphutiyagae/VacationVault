@@ -9,8 +9,3 @@ export const selectUserTrips = createSelector(
     selectUserTripsState,
     (state) => state.userTrips
 )
-
-export const selectTripItems = createSelector(
-    selectUserTripsState,
-    (state) => state.tripItems
-)

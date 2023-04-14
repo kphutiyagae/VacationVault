@@ -1,18 +1,15 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import * as StateActions from '../actions/state.actions';
 import {ITrip} from "../../../models/types";
-import {IItem} from "../../models/user";
 
 export const stateFeatureKey = 'state';
 
 export interface State {
   userTrips: ITrip[],
-  tripItems: IItem[]
 }
 
 export const initialState: State = {
   userTrips: [],
-  tripItems: []
 };
 
 export const reducer = createReducer(
