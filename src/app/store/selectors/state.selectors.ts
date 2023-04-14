@@ -1,6 +1,16 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as fromState from '../reducers/state.reducer';
 
-export const selectStateState = createFeatureSelector<fromState.State>(
+export const selectUserTripsState = createFeatureSelector<fromState.State>(
   fromState.stateFeatureKey
 );
+
+export const selectUserTrips = createSelector(
+    selectUserTripsState,
+    (state) => state.trips
+)
+
+export const selectTripItems = createSelector(
+    selectUserTripsState,
+    (state) => state.items
+)
