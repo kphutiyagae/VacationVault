@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {first, Observable, switchMap} from "rxjs";
+import {BehaviorSubject, first, Observable, switchMap} from "rxjs";
 import {ITrip} from "../../../models/types";
 import {ApiService} from "../../shared/services/api/api.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
@@ -9,7 +9,6 @@ import {AuthService} from "../../shared/services/auth.service";
 import {getUserTripData} from "../../store/actions/state.actions";
 import {Store} from "@ngrx/store";
 import {selectUserTrips} from "../../store/selectors/state.selectors";
-import {getUserId} from "../../utils/credentials";
 
 @Component({
   selector: 'app-home',
@@ -74,7 +73,7 @@ export class HomeComponent{
       trip_start: this.addTripForm.value.trip_start,
       trip_end: this.addTripForm.value.trip_end,
       country: this.addTripForm.value.country,
-      user_id: getUserId() ?? '',
+      user_id: this.authService.userId ?? '',
       itinerary_id: ''
     }
 
@@ -84,6 +83,9 @@ export class HomeComponent{
             switchMap(generatedTripId => {
                 newTrip.trip_id = generatedTripId;
                 return this.apiService.updateTripDetails(generatedTripId, newTrip)
+                    .pipe( switchMap(value => {
+                      return new BehaviorSubject<void>(this.store.dispatch(getUserTripData()));
+                    }))
             }
             )
         ).subscribe()
