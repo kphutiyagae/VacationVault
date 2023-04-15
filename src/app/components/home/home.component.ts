@@ -101,7 +101,7 @@ export class HomeComponent{
 
     if(!trip) return;
     this.router.navigate([`trip/${trip.trip_id}`])
-        .catch((err: Error) => {console.error(err)})
+        .catch((err: Error) => {})
   }
 
 }
