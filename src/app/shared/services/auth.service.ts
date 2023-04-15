@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import {AngularFireAuth} from "@angular/fire/compat/auth";
-import {IAuthResult} from "../../../models/types";
+import {IAuthResult, IUserCredential} from "../../../models/types";
+import {getUserId, isUserAuthenticated, setUserCredentials} from "../../utils/credentials";
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   userData: any;
-  _isLoggedIn: boolean;
 
   constructor(
       public angularFireAuth: AngularFireAuth,
@@ -16,21 +16,23 @@ export class AuthService {
       this.userData = user;
     })
 
-      this._isLoggedIn = false;
   }
   loginUser(email:string, password: string): Promise<IAuthResult> {
 
       return this.angularFireAuth.signInWithEmailAndPassword(email, password)
         .then( (result) => {
-            const successLoginObject: IAuthResult = {
-                result: 'success',
-                additional_info: {
-                    'user_id': result.user?.uid,
-                    'user_JWT': result.user?.getIdTokenResult().then( token => {return token})
-                }
+
+            const userCredentialObject: IUserCredential = {
+                user_id: result.user?.uid ?? '',
+                user_JWT: result.user?.getIdTokenResult().then( token => {return token}) ?? ''
             }
 
-            this._isLoggedIn = true;
+            const successLoginObject: IAuthResult = {
+                result: 'success',
+                additional_info: userCredentialObject
+            }
+
+            setUserCredentials(successLoginObject.additional_info as IUserCredential);
 
             return successLoginObject;
         }).catch( (error) => {
@@ -45,16 +47,20 @@ export class AuthService {
   signupUser(email:string,password:string): Promise<IAuthResult> {
     return this.angularFireAuth.createUserWithEmailAndPassword(email,password)
         .then( (result) => {
-            const successLoginObject: IAuthResult = {
-                result: 'success',
-                additional_info: {
-                    'user_id': result.user?.uid,
-                    'user_JWT': result.user?.getIdTokenResult().then( token => {return token})
-                }
-            }
-            this._isLoggedIn = true;
 
-            return successLoginObject;
+            const userCredentialObject: IUserCredential = {
+                user_id: result.user?.uid ?? '',
+                user_JWT: result.user?.getIdTokenResult().then( token => {return token}) ?? ''
+            }
+
+            const successSignupObject: IAuthResult = {
+                result: 'success',
+                additional_info: userCredentialObject
+            }
+
+            setUserCredentials(successSignupObject.additional_info as IUserCredential);
+
+            return successSignupObject;
 
         })
         .catch( (error) => {
@@ -67,11 +73,10 @@ export class AuthService {
   }
 
   public get isLoggedIn(){
-      return this._isLoggedIn;
+      return isUserAuthenticated();
   }
 
   public get userId(){
-      //return this.userData.user_id;
-      return '0tol4ljZlRMbC3WMkt7ihklmwzT2';
+        return getUserId();
   }
 }

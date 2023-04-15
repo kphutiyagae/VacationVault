@@ -1,4 +1,4 @@
-import { NgModule} from '@angular/core';
+import {isDevMode, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -38,8 +38,13 @@ import { CalendarCardComponent } from './UI/molecule/calendar-card/calendar-card
 import {NzCalendarModule} from "ng-zorro-antd/calendar";
 import {NzSelectModule} from "ng-zorro-antd/select";
 import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
-
+import { StoreModule } from '@ngrx/store';
+import * as fromState from './store/reducers/state.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { StateEffects } from './store/effects/state.effects';
+import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 registerLocaleData(en);
+
 
 @NgModule({
     declarations: [
@@ -77,16 +82,21 @@ registerLocaleData(en);
         NzIconModule,
         NzCalendarModule,
         NzSelectModule,
-        NzDatePickerModule
+        NzDatePickerModule,
+        StoreModule.forRoot({}),
+        EffectsModule.forRoot([]),
+        StoreDevtoolsModule.instrument({maxAge: 25, logOnly: !isDevMode()}),
+        StoreModule.forFeature(fromState.stateFeatureKey, fromState.reducer),
+        EffectsModule.forFeature([StateEffects])
     ],
-  providers: [
-    {provide: FIREBASE_OPTIONS, useValue: environment.firebase},
-    { provide: NZ_I18N, useValue: en_US },
-      AuthService
-  ],
-  bootstrap: [AppComponent]
+    providers: [
+        {provide: FIREBASE_OPTIONS, useValue: environment.firebase},
+        { provide: NZ_I18N, useValue: en_US },
+        AuthService
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor() {
-  }
+    constructor() {
+    }
 }

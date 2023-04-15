@@ -45,8 +45,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "4mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -118,6 +118,9 @@
     }
   },
   "cli": {
-    "analytics": false
+    "analytics": "f3dc1236-e116-46d0-af7e-c1bd4b02a0fb",
+    "schematicCollections": [
+      "@ngrx/schematics"
+    ]
   }
 }
