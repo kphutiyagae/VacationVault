@@ -51,3 +51,19 @@ export interface IAuthResult {
     result: string;
     additional_info?: IUserCredential
 }
+
+export interface IItem {
+    cost: number;
+    currency: string;
+    item_date_end?: string;
+    item_time_end?: string;
+    item_date_start?: string;
+    item_time_start?: string;
+    description?: string;
+    end_location?:  { latitude: number, longitude: number };
+    notes?: string;
+    start_location?: { latitude: number, longitude: number };
+    tags?: string[];
+    title: string;
+    trip_id: string;
+}

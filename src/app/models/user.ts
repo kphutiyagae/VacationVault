@@ -8,8 +8,8 @@ export interface IUser {
 export interface IItem {
     cost: number;
     currency: string;
-    date_time_end: Date;
-    date_time_start: Date;
+    date_time_end: Date | undefined;
+    date_time_start: Date | undefined;
     description: string;
     end_location:  { latitude: number, longitude: number };
     notes: string;

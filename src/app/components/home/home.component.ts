@@ -6,7 +6,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {country_list} from "../../utils/country-list";
 import {Router} from "@angular/router";
 import {AuthService} from "../../shared/services/auth.service";
-import {getUserTripData} from "../../store/actions/state.actions";
+import {getUserTripList} from "../../store/actions/state.actions";
 import {Store} from "@ngrx/store";
 import {selectUserTrips} from "../../store/selectors/state.selectors";
 
@@ -42,7 +42,7 @@ export class HomeComponent{
       private store: Store
   ) {
 
-    this.store.dispatch(getUserTripData())
+    this.store.dispatch(getUserTripList())
 
     this.countryList = country_list;
 
@@ -84,7 +84,7 @@ export class HomeComponent{
                 newTrip.trip_id = generatedTripId;
                 return this.apiService.updateTripDetails(generatedTripId, newTrip)
                     .pipe( switchMap(value => {
-                      return new BehaviorSubject<void>(this.store.dispatch(getUserTripData()));
+                      return new BehaviorSubject<void>(this.store.dispatch(getUserTripList()));
                     }))
             }
             )

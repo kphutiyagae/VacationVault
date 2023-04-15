@@ -12,6 +12,12 @@ module.exports = {
         'card-background-color': '#F0ECFE',
 
       },
+      width: {
+        'card-mobile' :'95%'
+      },
+      height: {
+        'description-section-mobile': '8rem'
+      },
       gridTemplateRows: {
         10: "repeat(10, minmax(0,1fr))",
         12: "repeat(12, minmax(0,1fr))",

@@ -1,1 +1,266 @@
-<p>TRIP</p>
+<div class="h-screen
+            w-full
+            md:grid
+            md:grid-rows-12
+            md:grid-cols-12
+            ">
+
+    <ng-container *ngIf="!(this.tripItinerary$ | async) as itineraryList; else pageContent">Loading.....</ng-container>
+
+    <nz-modal [(nzVisible)]="isAddingItem"
+              nzTitle="Add Itinerary Item"
+              (nzOnOk)="handleAddItem()"
+              [nzOkDisabled]="!itemForm.valid"
+              (nzOnCancel)="handleModalCancel()">
+        <ng-container *nzModalContent>
+            <form nz-form [formGroup]="itemForm" class="w-full">
+                <nz-form-item>
+                    <nz-form-label nzFor="title">Title</nz-form-label>
+                    <nz-form-control nzHasFeedback>
+                        <input
+                                type="text"
+                                id="name"
+                                formControlName="title"
+                                class="bg-background-color p-1.5 w-full"
+                        >
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzFor="description">Description</nz-form-label>
+                    <nz-form-control nzHasFeedback>
+                        <input
+                                type="text"
+                                id="description"
+                                formControlName="description"
+                                class="bg-background-color p-1.5 w-full h-28 "
+                        >
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzFor="title">Cost</nz-form-label>
+                    <nz-form-control nzHasFeedback>
+                        <input
+                                type="number"
+                                id="cost"
+                                formControlName="cost"
+                                class="bg-background-color p-1.5 w-full"
+                        >
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzFor="date_time_start" >Start Date</nz-form-label>
+                    <nz-form-control nzHasFeedback >
+                        <nz-date-picker
+                                formControlName="date_time_start"
+                                nzAllowClear id="date_time_start">
+                        </nz-date-picker>
+                        <nz-time-picker formControlName=""></nz-time-picker>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzFor="date_time_end" >End Date</nz-form-label>
+                    <nz-form-control nzHasFeedback>
+                        <nz-date-picker
+                                formControlName="trip_end"
+                                nzAllowClear id="trip_end"></nz-date-picker>
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+        </ng-container>
+    </nz-modal>
+    <ng-template #pageContent>
+        <div class="py-8 pl-8">
+            <button nz-button class="rounded-xl bg-primary-color flex justify-center items-center border-none" type="button" (click)="handleBackButtonClick()">
+                <svg stroke="white"
+                     fill="white"
+                     stroke-width="0"
+                     viewBox="0 0 512 512"
+                     height="1rem"
+                     width="1rem"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path d="M401.4 224h-214l83-79.4c11.9-12.5 11.9-32.7 0-45.2s-31.2-12.5-43.2 0L89
+                    233.4c-6 5.8-9 13.7-9 22.4v.4c0 8.7 3 16.6 9 22.4l138.1 134c12 12.5 31.3 12.5 43.2 0 11.9-12.5
+                    11.9-32.7 0-45.2l-83-79.4h214c16.9 0 30.6-14.3 30.6-32 .1-18-13.6-32-30.5-32z">
+                    </path>
+                </svg>
+            </button>
+        </div>
+
+        <div class="py-8">
+            <p class="text-md font-light ml-8 mb-1.5">Trip name:</p>
+            <h3 class="text-xl font-bold ml-8">{{currentTrip?.name}}</h3>
+        </div>
+
+        <div class="h-36 flex flex-row justify-around">
+            <div class="h-32 mt-2
+            overflow-hidden py-2 px-2
+            bg-blue-200 w-card-mobile drop-shadow-md
+            rounded-lg grid grid-rows-5 grid-cols-6">
+                <div class="
+                row-start-1 row-end-3
+                col-start-1 col-end-4 flex flex-row pl-6 items-center">
+                    <svg stroke="currentColor"
+                         fill="currentColor"
+                         stroke-width="0"
+                         viewBox="0 0 496 512"
+                         height="1em"
+                         width="1em"
+                         xmlns="http://www.w3.org/2000/svg">
+                            <path d="M248 8C111.03 8 0 119.03 0 256s111.03 248
+                            248 248 248-111.03 248-248S384.97 8 248 8zm160 215.5v6.93c0
+                            5.87-3.32 11.24-8.57 13.86l-15.39 7.7a15.485 15.485 0 0 1-15.53-.97l-18.21-12.14a15.52
+                            15.52 0 0 0-13.5-1.81l-2.65.88c-9.7 3.23-13.66 14.79-7.99 23.3l13.24 19.86c2.87
+                            4.31 7.71 6.9 12.89 6.9h8.21c8.56 0 15.5 6.94 15.5 15.5v11.34c0 3.35-1.09 6.62-3.1
+                            9.3l-18.74 24.98c-1.42 1.9-2.39 4.1-2.83 6.43l-4.3 22.83c-.62 3.29-2.29 6.29-4.76
+                            8.56a159.608 159.608 0 0 0-25 29.16l-13.03 19.55a27.756 27.756 0 0 1-23.09
+                            12.36c-10.51 0-20.12-5.94-24.82-15.34a78.902 78.902 0 0 1-8.33-35.29V367.5c0-8.56-6.94-15.5-15.5-15.5h-25.88c-14.49
+                            0-28.38-5.76-38.63-16a54.659 54.659 0 0
+                            1-16-38.63v-14.06c0-17.19 8.1-33.38 21.85-43.7l27.58-20.69a54.663 54.663 0 0 1
+                            32.78-10.93h.89c8.48 0 16.85 1.97 24.43 5.77l14.72 7.36c3.68 1.84 7.93 2.14
+                            11.83.84l47.31-15.77c6.33-2.11 10.6-8.03 10.6-14.7 0-8.56-6.94-15.5-15.5-15.5h-10.09c-4.11
+                            0-8.05-1.63-10.96-4.54l-6.92-6.92a15.493 15.493 0 0 0-10.96-4.54H199.5c-8.56 0-15.5-6.94-15.5-15.5v-4.4c0-7.11
+                            4.84-13.31 11.74-15.04l14.45-3.61c3.74-.94 7-3.23 9.14-6.44l8.08-12.11c2.87-4.31 7.71-6.9 12.89-6.9h24.21c8.56
+                            0 15.5-6.94 15.5-15.5v-21.7C359.23 71.63 422.86 131.02 441.93 208H423.5c-8.56 0-15.5 6.94-15.5 15.5z">
+                            </path>
+                    </svg>
+                    <p class="ml-2 font-extrabold">{{currentTrip?.country}}</p>
+                </div>
+
+                <div class="row-start-3
+                row-end-6 col-start-1 col-end-4">
+                    <p class="mt-2 ml-6 font-light">Cost:</p>
+                    <p class="ml-6 text-2xl font-bold">{{itineraryCost / 2}} <span class="text-sm font-light text-gray-700">ZAR</span></p>
+                </div>
+
+                <div class="row-start-1
+                row-end-6 col-start-4
+                col-end-7 flex flex-col">
+                    <div class="h-1/2 flex flex-col justify-center items-center">
+                        <div class="flex flex-row p-1.5">
+                            <svg stroke="currentColor"
+                                 fill="currentColor"
+                                 stroke-width="0" viewBox="0 0 512 512"
+                                 height="1em"
+                                 width="1em"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M442.6 67.37c-1.6.01-3.2.06-4.8.16-13.2.73-26.9
+                                 3.8-36.8 8.74l-.2.12-281 120.21-4.1-2.6c-20.62-13.3-42.15-26.8-73.84-32.1 2.07 4.7 4.64
+                                 9.9 7.76 15.5 6.69 11.9 15.26 25.3 23.75 37.6 8.49 12.2 16.96 23.3 23.21 30.4 2.41 2.8 4.02
+                                 4.3 5.42 5.6l172.2-68.6-1.2 14.4c-3.7 44.4-11.3 89.6-23.5 135.7l28.5-19c32.6-51.5 43.5-87.2
+                                 71-157.3l1.2-3 91.5-50.5h.2c22.9-11.49 32.8-21.65
+                                 34.4-25.36.8-1.86.6-1.37.2-2.04-.4-.66-2.3-2.39-5.8-3.85-5.4-2.2-13.8-3.72-23.3-4.03-1.5-.05-3.2-.07-4.8-.05zm-283
+                                 11.74l-22.1 4.4L222 133.3l60.1-25.7C248 96.96 210.8 86.98 159.6 79.11zM32 439v18h448v-18H32z">
+                                </path>
+                            </svg>
+                        </div>
+
+                        <p class="text-md font-bold">{{'8 DEC'}} <span class="text-xs font-medium text-gray-700">{{'2023'}}</span></p>
+                    </div>
+                    <div class="h-1/2 flex flex-col justify-center items-center">
+                        <div class="flex flex-row p-1.5">
+                            <svg stroke="currentColor"
+                                 fill="currentColor"
+                                 stroke-width="0"
+                                 viewBox="0 0 512 512"
+                                 height="1em"
+                                 width="1em"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M86.48 31.83c-1.96 4.68-4.03 10.14-5.96 16.22-4.14 13.05-8.05 28.48-11.15
+                                43.03-3.1 14.52-5.39 28.32-6.34 37.82-.35 3.6-.35 5.8-.35 7.7l167.92 78.6-11.4 9c-34.8 27.7-73
+                                53-115.1 75.7l33.4 7.8c60-11.4 93.5-27.9 163.4-55.9l3-1.2 99.4 32.3.2.1c24 8.8 38.2 9.1 42 7.8
+                                1.9-.7 1.4-.5
+                                1.6-1.3.2-.8.2-3.3-1.2-6.9-2.7-7.2-10.1-17.6-19.6-26.7-9.5-9.1-21.2-17-31.5-20.9l-.3-.1-279.9-122.6-.8-4.6c-4.6-24.2-9.5-49.13-27.32-75.87zM209.2
+                                47.9l21.5 95.6 59.8 26.3c-15.5-32.1-33.8-66.1-63.1-108.83L209.2 47.9zM32
+                                439v18h448v-18H32z">
+                                </path>
+                            </svg>
+                        </div>
+
+                        <p class="text-md font-bold">{{'17 DEC'}} <span class="text-xs font-medium text-gray-700">{{'2023'}}</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="h-description-section-mobile">
+            <p class="ml-6 text-lg font-semibold pt-4">
+                Description
+            </p>
+            <p class="ml-6 mt-4">
+                {{currentTrip?.description}}
+            </p>
+        </div>
+
+        <div class="flex flex-col">
+            <div>
+                <h3 class="text-xl font-bold ml-8">
+                    Itinerary
+                </h3>
+                <div class="pl-8 py-4">
+                    <button nz-button class="text-white rounded-xl bg-primary-color flex justify-center items-center border-none" type="button" (click)="handleAddItemButtonClick()">
+                        <svg stroke="currentColor"
+                             fill="currentColor"
+                             stroke-width="0"
+                             viewBox="0 0 448 512"
+                             height="1rem"
+                             width="1rem"
+                             xmlns="http://www.w3.org/2000/svg">
+                                <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32
+                                32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32
+                                32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z">
+                                </path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div>
+                <nz-list nzItemLayout="vertical" class="overflow-scroll h-80">
+                    <nz-list-item *ngFor=" let item of (this.tripItinerary$ | async)"
+                                  class="drop-shadow-lg bg-blue-200 pl-6 ml-2 mb-1.5 w-[95%] rounded-md" (click)="handleItemClick(item)">
+                        <nz-list-item-meta>
+                            <nz-list-item-meta-title>
+                                <p class="py-2 mr-2 text-md font-semibold">{{item?.title ?? 'Untitled Activity'}}</p>
+                            </nz-list-item-meta-title>
+                            <nz-list-item-meta-description>
+                                <div class="flex flex-row justify-between">
+                                    <div>
+                                        <p class="font-bold">
+                                            <span class="font-light">YEN</span> {{item?.cost ?? '0'}}
+                                        </p>
+                                    </div>
+                                    <div class="mr-4 px-5 py-2">
+                                        <button nz-button class="text-white rounded-xl bg-primary-color flex justify-center items-center border-none" type="button" (click)="handleAddItemButtonClick()">
+                                            <svg stroke="currentColor"
+                                                 fill="currentColor"
+                                                 stroke-width="0"
+                                                 viewBox="0 0 1024 1024"
+                                                 height="1rem"
+                                                 width="1rem"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8
+                                                    8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32zm-622.3-84c2 0
+                                                    4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96
+                                                    9.96 0 0 0 0-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1
+                                                    2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 0 0
+                                                    9.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9z">
+                                                    </path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                </nz-list-item-meta-description>
+                        </nz-list-item-meta>
+                    </nz-list-item>
+                </nz-list>
+            </div>
+        </div>
+
+    </ng-template>
+
+<!--
+        <h2>Trip: {{currentTrip?.name}}</h2>
+        <ul *ngFor="let item of (tripItinerary$ | async)">
+            <li>{{item}}</li>
+        </ul>
+-->
+</div>

@@ -13,12 +13,12 @@ export class StateEffects {
   getUserTrips$ = createEffect(() => {
     return this.actions$.pipe( 
 
-      ofType(StateActions.getUserTripData),
+      ofType(StateActions.getUserTripList),
 
         switchMap( () =>
         this.apiService.getAllTrips()
             .pipe(
-                map( response => StateActions.getUserTripDataSuccess({userTrips: response})))
+                map( response => StateActions.getUserTripListSuccess({userTrips: response})))
         ),
         catchError( err => {
 
@@ -29,7 +29,36 @@ export class StateEffects {
             }
           }
 
-          StateActions.getUserTripDataFailure({error: responseErrorObject})
+          StateActions.getUserTripListFailure({error: responseErrorObject})
+
+          return EMPTY;
+        })
+    );
+  });
+
+  getTripItineraryItems$ = createEffect(() => {
+    return this.actions$.pipe(
+
+        ofType(StateActions.getTripItineraryItems),
+
+        switchMap( (props) =>
+            this.apiService.getTripItineraryList(props.tripId)
+                .pipe(
+                    map( response => {
+                      console.log(response);
+                      return StateActions.getTripItineraryItemsSuccess({tripItinerary: response})
+                    }))
+        ),
+        catchError( err => {
+
+          const responseErrorObject: IError = {
+            message: "Oops an error has occurred.",
+            additional_info: {
+              error: err
+            }
+          }
+
+          StateActions.getTripItineraryItemsFailure({error: responseErrorObject})
 
           return EMPTY;
         })
