@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import {IError, ITrip} from "../../../models/types";
-import {IItem} from "../../models/user";
+import {IItem} from "../../../models/types";
 
 export const getUserTripList = createAction(
   '[State] Get User Trips Data'

@@ -26,6 +26,7 @@ export class TripComponent implements OnInit{
 
   isAddingItem = false;
 
+  isOkLoading = false;
 
   itemAddEditDetails: IItem = {
       cost: 0,
@@ -54,6 +55,7 @@ export class TripComponent implements OnInit{
     itinerary_id: ''};
 
   tagOptions = ['Nature', 'Urban', 'Business', 'Personal']
+
   itineraryCost = 0;
 
   itemForm: FormGroup;
@@ -63,6 +65,7 @@ export class TripComponent implements OnInit{
   constructor(
       private route: ActivatedRoute,
       private router: Router,
+      private apiService: ApiService,
       private store: Store) {
 
       this.itemForm = new FormGroup({
@@ -124,7 +127,42 @@ export class TripComponent implements OnInit{
   }
 
   handleAddItem(){
-      console.log('Submitting...')
+
+      this.isOkLoading = true;
+
+      const newItem: IItem = {
+          cost: this.itemForm?.value?.['cost'] ?? 0,
+          currency: this.itemForm?.value?.['currency'] ?? 'ZAR',
+          description: this.itemForm?.value?.['description'] ?? 'No description provided',
+          end_location: {latitude: 0, longitude: 0},
+          item_date_end: this.itemForm?.value?.['item_date_end'] ?? '',
+          item_date_start: this.itemForm?.value?.['item_date_start'] ?? '',
+          item_time_end: this.itemForm?.value?.['item_time_end'] ?? '',
+          item_time_start: this.itemForm?.value?.['item_date_start'] ?? '',
+          notes: this.itemForm?.value?.['notes'] ?? 'No notes provided',
+          start_location: {latitude: 0, longitude: 0},
+          tags: this.itemForm?.value?.['tags'] ?? [],
+          title: this.itemForm?.value?.['title'] ?? 'No title provided',
+          trip_id: this?.tripId ?? ''
+      }
+
+      this.apiService.addItineraryItem(newItem, this.tripId as string).pipe(
+          map( result => {
+              this.itemForm.reset();
+              this.isOkLoading = false;
+              this.isAddingItem = false;
+              return result;
+          })
+      )
+  }
+
+  handleItemDelete(item: IItem){
+      item
+      this.apiService.removeItineraryItem('', this.tripId as string);
+  }
+
+  handleConfirmModal(){
+
   }
 
   handleModalCancel(): void {

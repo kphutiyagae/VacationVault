@@ -12,7 +12,7 @@ import {
 } from "@angular/fire/firestore";
 import {from, Observable, of, switchMap} from "rxjs";
 
-import {IItem} from "../../../models/user";
+import {IItem} from "../../../../models/types";
 
 @Injectable({
   providedIn: 'root'

@@ -1,7 +1,7 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import * as StateActions from '../actions/state.actions';
 import {ITrip} from "../../../models/types";
-import {IItem} from "../../models/user";
+import {IItem} from "../../../models/types";
 
 export const stateFeatureKey = 'state';
 
