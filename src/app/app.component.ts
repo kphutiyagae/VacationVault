@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {ApiService} from "./shared/services/api/api.service";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'vacation-vault';
+
+  constructor( protected apiServ: ApiService) {
+
+  }
+
 }

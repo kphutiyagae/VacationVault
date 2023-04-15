@@ -1,3 +1,15 @@
 node_modules
 .angular
 .idea
+# Firebase
+.firebase
+*-debug.log
+.runtimeconfig.json
+
+src/app/enviroments/**.*
+
+environments.ts
+
+
+*.txt
+/src/app/environments/environment.ts
