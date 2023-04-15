@@ -37,7 +37,20 @@
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
-                    <nz-form-label nzFor="title">Cost</nz-form-label>
+                    <nz-form-label nzFor="country">Currency</nz-form-label>
+                    <nz-form-control nzHasFeedback>
+                        <nz-select nzSize="default" formControlName="country"
+                                   nzAllowClear
+                                   nzPlaceHolder="Select Country"
+                        >
+                            <nz-option *ngFor="let code of currencyCodeArray"
+                                       [nzValue]="code"
+                                       [nzLabel]="code"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzFor="cost">Cost</nz-form-label>
                     <nz-form-control nzHasFeedback>
                         <input
                                 type="number"
@@ -48,21 +61,62 @@
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
-                    <nz-form-label nzFor="date_time_start" >Start Date</nz-form-label>
+                    <nz-form-label nzFor="item_date_start">Start Date</nz-form-label>
                     <nz-form-control nzHasFeedback >
                         <nz-date-picker
-                                formControlName="date_time_start"
-                                nzAllowClear id="date_time_start">
+                                formControlName="item_date_start"
+                                nzAllowClear id="item_date_start">
                         </nz-date-picker>
-                        <nz-time-picker formControlName=""></nz-time-picker>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
-                    <nz-form-label nzFor="date_time_end" >End Date</nz-form-label>
-                    <nz-form-control nzHasFeedback>
+                    <nz-form-label nzFor="item_time_start">Start Time</nz-form-label>
+                    <nz-form-control nzHasFeedback >
+                        <nz-time-picker
+                                formControlName="item_time_start"
+                                nzAllowEmpty id="item_time_start">
+                        </nz-time-picker>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzFor="item_date_end">End Date</nz-form-label>
+                    <nz-form-control nzHasFeedback >
                         <nz-date-picker
-                                formControlName="trip_end"
-                                nzAllowClear id="trip_end"></nz-date-picker>
+                                formControlName="item_date_end"
+                                nzAllowClear id="item_date_end">
+                        </nz-date-picker>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzFor="item_time_end">End Time</nz-form-label>
+                    <nz-form-control nzHasFeedback >
+                        <nz-time-picker
+                                formControlName="item_time_end"
+                                nzAllowEmpty id="item_time_end">
+                        </nz-time-picker>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzFor="notes">Notes</nz-form-label>
+                    <nz-form-control nzHasFeedback>
+                        <input
+                                type="text"
+                                id="notes"
+                                formControlName="notes"
+                                class="bg-background-color p-1.5 w-full h-28 "
+                        >
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzFor="tags">Tags</nz-form-label>
+                    <nz-form-control nzHasFeedback>
+                        <nz-select
+                                nzMode="tags"
+                                nzPlaceHolder="'Nature', 'Warm' ...."
+                                formControlName="tags">
+                            <nz-option *ngFor="let option of tagOptions" [nzLabel]="option" [nzValue]="option">
+                            </nz-option>
+                        </nz-select>
                     </nz-form-control>
                 </nz-form-item>
             </form>
@@ -228,8 +282,8 @@
                                             <span class="font-light">YEN</span> {{item?.cost ?? '0'}}
                                         </p>
                                     </div>
-                                    <div class="mr-4 px-5 py-2">
-                                        <button nz-button class="text-white rounded-xl bg-primary-color flex justify-center items-center border-none" type="button" (click)="handleAddItemButtonClick()">
+                                    <div class="mr-4 px-5 py-2 bg-red-500 z-50">
+                                        <button nz-button class="text-white rounded-xl bg-primary-color flex justify-center items-center border-none" type="button" (click)="handleEditItemButtonClick(item)">
                                             <svg stroke="currentColor"
                                                  fill="currentColor"
                                                  stroke-width="0"
