@@ -25,4 +25,5 @@ export function getUserId(): string | null{
 
 export function removeUserCredentials(){
     localStorage.removeItem('user-credentials');
+    localStorage.clear();
 }

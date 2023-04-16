@@ -5,6 +5,7 @@
             md:grid-cols-12
             ">
 
+    <app-nav-bar></app-nav-bar>
     <ng-container *ngIf="!(this.tripItinerary$ | async) as itineraryList; else pageContent">Loading.....</ng-container>
 
     <nz-modal [(nzVisible)]="isAddingItem"
