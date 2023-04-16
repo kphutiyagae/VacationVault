@@ -3,7 +3,17 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Store} from "@ngrx/store";
 import {ApiService} from "../../shared/services/api/api.service";
 import {getTripItineraryItems, getUserTripList} from "../../store/actions/state.actions";
-import {BehaviorSubject, distinct, distinctUntilChanged, first, Observable, Subscription, switchMap} from "rxjs";
+import {
+    BehaviorSubject,
+    distinct,
+    distinctUntilChanged,
+    EMPTY,
+    first,
+    Observable,
+    Subscription,
+    switchMap,
+    tap
+} from "rxjs";
 import {IItem} from "../../../models/types";
 import {selectTripItineraryItems, selectUserTrips} from "../../store/selectors/state.selectors";
 import {ITrip} from "../../../models/types";
@@ -89,7 +99,7 @@ export class TripComponent implements OnInit{
 
     this.store.dispatch(getUserTripList())
     this.store.dispatch(getTripItineraryItems({tripId: this.tripId}))
-
+      this.itineraryCost = 0;
     this.tripItinerary$ = this.store.select(selectTripItineraryItems)
         .pipe(
             distinct(),
@@ -146,19 +156,30 @@ export class TripComponent implements OnInit{
           trip_id: this?.tripId ?? ''
       }
 
-      this.apiService.addItineraryItem(newItem, this.tripId as string).pipe(
-          map( result => {
-              this.itemForm.reset();
-              this.isOkLoading = false;
-              this.isAddingItem = false;
-              return result;
-          })
-      )
+      this.apiService.addItineraryItem(newItem, this.tripId as string)
+          .pipe(
+              first(),
+              switchMap( generatedItemId => {
+
+                  console.log('ITEM ID: ',generatedItemId);
+
+                  newItem.item_id = generatedItemId;
+                  return this.apiService.updateItineraryItemDetails(generatedItemId,this.tripId as string, newItem)
+                      .pipe( switchMap( () => {
+                          this.itemForm.reset();
+                          this.isOkLoading = false;
+                          this.isAddingItem = false;
+                          return EMPTY;
+                      }))
+              })
+          ).subscribe()
   }
 
   handleItemDelete(item: IItem){
-      item
-      this.apiService.removeItineraryItem('', this.tripId as string);
+      console.log(item)
+
+      if(item?.item_id)
+        this.apiService.removeItineraryItem(item.item_id, this.tripId as string);
   }
 
   handleConfirmModal(){

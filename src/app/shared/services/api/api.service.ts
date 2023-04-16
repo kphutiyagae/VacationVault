@@ -43,7 +43,7 @@ export class ApiService {
     const itemCollection = collection(this.firestore, `trips/${tripId}/itinerary`);
     return from( addDoc(itemCollection, item) ).pipe(
         switchMap( documentReference =>
-          documentReference.id
+          of(documentReference.id)
         )
     )
   }

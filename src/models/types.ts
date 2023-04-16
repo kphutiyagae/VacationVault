@@ -66,4 +66,5 @@ export interface IItem {
     tags?: string[];
     title: string;
     trip_id: string;
+    item_id?:string;
 }
