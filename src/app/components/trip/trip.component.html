@@ -5,7 +5,9 @@
             md:grid-cols-12
             ">
 
-    <app-nav-bar></app-nav-bar>
+    <div class="md:row-start-1 md:col-start-1 md:col-end-13">
+        <app-nav-bar></app-nav-bar>
+    </div>
     <ng-container *ngIf="!(this.tripItinerary$ | async) as itineraryList; else pageContent">Loading.....</ng-container>
 
     <nz-modal [(nzVisible)]="isAddingItem"
@@ -125,7 +127,7 @@
         </ng-container>
     </nz-modal>
     <ng-template #pageContent>
-        <div class="py-8 pl-8">
+        <div class="py-8 pl-8 md:row-start-2 md:col-start-1 md:col-end-8">
             <button nz-button class="rounded-xl bg-primary-color flex justify-center items-center border-none" type="button" (click)="handleBackButtonClick()">
                 <svg stroke="white"
                      fill="white"
@@ -142,12 +144,12 @@
             </button>
         </div>
 
-        <div class="py-8">
-            <p class="text-md font-light ml-8 mb-1.5">Trip name:</p>
-            <h3 class="text-xl font-bold ml-8">{{currentTrip?.name}}</h3>
+        <div class="py-8 md:row-start-3 md:row-end-4 md:col-start-1 md:col-end-8">
+            <p class="text-md font-light ml-8 mb-1.5 md:text-lg">Trip name:</p>
+            <h3 class="text-xl font-bold ml-8 md:text-5xl md:mt-4">{{currentTrip?.name}}</h3>
         </div>
 
-        <div class="h-36 flex flex-row justify-around">
+        <div class="h-36 flex flex-row justify-around md:row-start-3 md:row-end-5 md:col-start-7 md:col-end-12">
             <div class="h-32 mt-2
             overflow-hidden py-2 px-2
             bg-blue-200 w-card-mobile drop-shadow-md
@@ -238,18 +240,22 @@
             </div>
         </div>
 
-        <div class="h-description-section-mobile">
-            <p class="ml-6 text-lg font-semibold pt-4">
-                Description
+        <div class="h-description-section-mobile md:row-start-6 md:row-end-9 md:mt md:col-start-1 md:col-end-8 md:mt-10">
+            <p class="ml-6 text-md font-light pt-4 md:ml-8 md:mb-8 md:text-lg">
+                Description:
             </p>
-            <p class="ml-6 mt-4">
+            <p class="ml-6 md: md:ml-8 md:mt-4 md:text-xl">
                 {{currentTrip?.description}}
             </p>
         </div>
 
-        <div class="flex flex-col">
+        <div class="hidden md:block md:row-start-5 row-end-6 col-start-1 col-end-8">
+            <p class="text-md font-light ml-8 mb-1.5 md:text-lg">Country:</p>
+            <h3 class="text-xl font-bold ml-8 md:text-5xl md:mt-4">{{currentTrip?.country}}</h3>
+        </div>
+        <div class="flex flex-col md:row-start-6 md:row-end-12 md:col-start-7 md:col-end-12">
             <div>
-                <h3 class="text-xl font-bold ml-8">
+                <h3 class="text-xl font-bold ml-8 md:text-lg md:font-light">
                     Itinerary
                 </h3>
                 <div class="pl-8 py-4">
@@ -270,18 +276,19 @@
                 </div>
             </div>
             <div>
-                <nz-list nzItemLayout="vertical" class="overflow-scroll h-80">
+                <nz-list nzItemLayout="vertical" class="overflow-scroll h-80 md:h-96">
                     <nz-list-item *ngFor=" let item of (this.tripItinerary$ | async)"
                                   class="drop-shadow-lg bg-blue-200 pl-6 ml-2 mb-1.5 w-[95%] rounded-md" (click)="handleItemClick(item)">
                         <nz-list-item-meta>
                             <nz-list-item-meta-title>
-                                <p class="py-2 mr-2 text-md font-semibold">{{item?.title ?? 'Untitled Activity'}}</p>
+                                <p class="py-2 mr-2 text-md font-semibold md:text-2xl md:font-bold">{{item?.title ?? 'Untitled Activity'}}</p>
                             </nz-list-item-meta-title>
                             <nz-list-item-meta-description>
                                 <div class="flex flex-row justify-between">
                                     <div>
-                                        <p class="font-bold">
-                                            <span class="font-light">YEN</span> {{item?.cost ?? '0'}}
+                                        <p class="font-bold md:text-xl">
+                                            <span class="font-light md:text-lg">{{getCurrencySymbol(item?.currency ?? '') ?? 'UNK'}}</span>
+                                            <span class="md:text-black ml-1.5">{{item?.cost ?? '0'}}</span>
                                         </p>
                                     </div>
                                     <div class="mr-4 px-5 py-2 z-50 flex flex-row justify-between">

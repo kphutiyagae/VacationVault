@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {ITrip} from "../../../../models/types";
+import {ICurrencyAPIResponse, ITrip} from "../../../../models/types";
 import {
   Firestore,
   collection,
@@ -13,6 +13,8 @@ import {
 import {from, Observable, of, switchMap} from "rxjs";
 
 import {IItem} from "../../../../models/types";
+import {httpsCallable} from "@angular/fire/functions";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +22,7 @@ import {IItem} from "../../../../models/types";
 export class ApiService {
   firestore: Firestore = inject(Firestore);
   constructor(
+      private httpClient: HttpClient
   ) {}
 
   public getAllTrips(): Observable<ITrip[]> {
@@ -77,6 +80,10 @@ export class ApiService {
   removeItineraryItem(itemId:string, tripId:string): Observable<void>{
     const itemDocRef = doc(this.firestore, `trips/${tripId}/itinerary/${itemId}`);
     return from(deleteDoc(itemDocRef));
+  }
+
+  convertAmountToCurrency(currencyFrom: string, currencyTo: string, currencyAmount: number){
+    return this.httpClient.get<ICurrencyAPIResponse>(`https://api.exchangerate.host/convert?from=${currencyFrom}&to=${currencyTo}&amount=${currencyAmount}`)
   }
 
 }

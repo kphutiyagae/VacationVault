@@ -20,6 +20,8 @@ import {ITrip} from "../../../models/types";
 import {map} from "rxjs/operators";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {currencyCodeObject} from "../../utils/currency-codes";
+import {calculateItineraryCost} from "../../utils/currency";
+import {getCurrencySymbol} from "../../utils/currency";
 
 @Component({
   selector: 'app-trip',
@@ -68,6 +70,8 @@ export class TripComponent implements OnInit{
 
   itineraryCost = 0;
 
+  baseCurrency = 'ZAR';
+
   itemForm: FormGroup;
 
   currencyCodeArray = Object.keys(currencyCodeObject);
@@ -99,12 +103,12 @@ export class TripComponent implements OnInit{
 
     this.store.dispatch(getUserTripList())
     this.store.dispatch(getTripItineraryItems({tripId: this.tripId}))
-      this.itineraryCost = 0;
+
     this.tripItinerary$ = this.store.select(selectTripItineraryItems)
         .pipe(
             distinct(),
             map(itinerary => {
-              itinerary.map( item => this.itineraryCost = this.itineraryCost + Number(item?.cost ?? 0) )
+                console.log('TOTAL COST: ', calculateItineraryCost(itinerary, this.baseCurrency, this.apiService ));
               return itinerary;
             })
         );
@@ -113,7 +117,6 @@ export class TripComponent implements OnInit{
         .pipe(
             first(),
             switchMap( tripList => {
-              //this.currentTrip = tripList.find((trip) => trip?.trip_id === this.tripId);
                 return tripList;
             })
 
@@ -190,4 +193,6 @@ export class TripComponent implements OnInit{
     this.isAddingItem = false;
     this.itemForm.reset();
   }
+
+    protected readonly getCurrencySymbol = getCurrencySymbol;
 }

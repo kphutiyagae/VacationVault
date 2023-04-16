@@ -68,3 +68,38 @@ export interface IItem {
     trip_id: string;
     item_id?:string;
 }
+
+export interface ICurrencyAPIResponse {
+    motd: Motd
+    success: boolean
+    query: Query
+    info: Info
+    historical: boolean
+    date: string
+    result: number
+}
+
+export interface Motd {
+    msg: string
+    url: string
+}
+
+export interface Query {
+    from: string
+    to: string
+    amount: number
+}
+
+export interface Info {
+    rate: number
+}
+
+export interface ICurrencyObject {
+    symbol: string,
+    name: string,
+    symbol_native: string,
+    decimal_digits: number,
+    rounding: number,
+    code: string,
+    name_plural: string
+}
