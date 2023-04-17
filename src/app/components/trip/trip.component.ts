@@ -22,6 +22,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {currencyCodeObject} from "../../utils/currency-codes";
 import {calculateItineraryCost} from "../../utils/currency";
 import {getCurrencySymbol} from "../../utils/currency";
+import {getUserId} from "../../utils/credentials";
 
 @Component({
   selector: 'app-trip',
@@ -92,8 +93,7 @@ export class TripComponent implements OnInit{
   }
   ngOnInit(){
     this.tripId = this.route.snapshot.paramMap.get('tripId') ?? '';
-
-    this.store.dispatch(getUserTripList())
+    this.store.dispatch(getUserTripList({user_id: getUserId() as string}))
     this.store.dispatch(getTripItineraryItems({tripId: this.tripId}))
 
     this.tripItinerary$ = this.store.select(selectTripItineraryItems)

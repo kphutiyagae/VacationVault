@@ -25,9 +25,9 @@ export class ApiService {
       private httpClient: HttpClient
   ) {}
 
-  public getAllTrips(): Observable<ITrip[]> {
+  public getAllTrips(user_id:string): Observable<ITrip[]> {
     const tripCollection = collection(this.firestore, 'trips');
-    const queryRef = query(tripCollection, where('user_id','==',`${'0tol4ljZlRMbC3WMkt7ihklmwzT2'}`))
+    const queryRef = query(tripCollection, where('user_id','==',`${user_id}`))
     return collectionData(queryRef) as Observable<ITrip[]>;
   }
 

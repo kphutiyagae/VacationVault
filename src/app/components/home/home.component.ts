@@ -9,6 +9,7 @@ import {AuthService} from "../../shared/services/auth.service";
 import {getUserTripList} from "../../store/actions/state.actions";
 import {Store} from "@ngrx/store";
 import {selectUserTrips} from "../../store/selectors/state.selectors";
+import {getUserId} from "../../utils/credentials";
 
 @Component({
   selector: 'app-home',
@@ -42,7 +43,7 @@ export class HomeComponent{
       private store: Store
   ) {
 
-    this.store.dispatch(getUserTripList())
+    this.store.dispatch(getUserTripList({user_id: getUserId() as string}))
 
     this.countryList = country_list;
 
@@ -84,7 +85,7 @@ export class HomeComponent{
                 newTrip.trip_id = generatedTripId;
                 return this.apiService.updateTripDetails(generatedTripId, newTrip)
                     .pipe( switchMap(value => {
-                      return new BehaviorSubject<void>(this.store.dispatch(getUserTripList()));
+                      return new BehaviorSubject<void>(this.store.dispatch(getUserTripList({user_id: getUserId() as string})));
                     }))
             }
             )

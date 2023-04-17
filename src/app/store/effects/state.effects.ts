@@ -15,8 +15,8 @@ export class StateEffects {
 
       ofType(StateActions.getUserTripList),
 
-        switchMap( () =>
-        this.apiService.getAllTrips()
+        switchMap( (props) =>
+        this.apiService.getAllTrips(props.user_id)
             .pipe(
                 map( response => StateActions.getUserTripListSuccess({userTrips: response})))
         ),

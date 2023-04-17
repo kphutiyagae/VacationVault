@@ -3,7 +3,8 @@ import {IError, ITrip} from "../../../models/types";
 import {IItem} from "../../../models/types";
 
 export const getUserTripList = createAction(
-  '[State] Get User Trips Data'
+  '[State] Get User Trips Data',
+    props<{user_id: string}>()
 );
 
 export const getUserTripListSuccess = createAction(
