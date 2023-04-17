@@ -6,11 +6,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'primary-color': '#220678ff',
-        'primary-color-highlight': '#3c19da',
+        'primary-color': '#0000A3',
+        'primary-color-highlight': '#1F1FFF',
         'background-color': '#F6F6F6ff',
-        'card-background-color': '#F0ECFE',
-
+        'card-background-color': '#ACCFEC',
+        'card-hover-background': '#40a9ff',
+        'background-color-dark-theme': '#011627',
+      },
+      fontFamily: {
+        'poppins': ['Poppins', 'sans-serif'],
+        'bebas': ['Bebas Neue', 'sans-serif']
       },
       width: {
         'card-mobile' :'95%'

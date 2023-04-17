@@ -8,7 +8,7 @@ import {
   docData,
   addDoc,
   deleteDoc,
-  updateDoc
+  updateDoc, query, where
 } from "@angular/fire/firestore";
 import {from, Observable, of, switchMap} from "rxjs";
 
@@ -27,7 +27,8 @@ export class ApiService {
 
   public getAllTrips(): Observable<ITrip[]> {
     const tripCollection = collection(this.firestore, 'trips');
-    return collectionData(tripCollection) as Observable<ITrip[]>;
+    const queryRef = query(tripCollection, where('user_id','==',`${'0tol4ljZlRMbC3WMkt7ihklmwzT2'}`))
+    return collectionData(queryRef) as Observable<ITrip[]>;
   }
 
   getTripInfo(tripId: string): Observable<ITrip>{

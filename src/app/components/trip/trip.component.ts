@@ -56,15 +56,7 @@ export class TripComponent implements OnInit{
       trip_id: ""
   }
 
-  currentTrip: ITrip | undefined = {
-    name: 'Anniversary',
-    trip_id: 'KYObXyOSRWg4eaMX4VIN',
-    user_id: '0tol4ljZlRMbC3WMkt7ihklmwzT2 ',
-    country: 'Japan',
-    trip_end: new Date(),
-    description: 'Rising sun, fallen shadow',
-    trip_start: new Date(),
-    itinerary_id: ''};
+  currentTrip: ITrip | undefined;
 
   tagOptions = ['Nature', 'Urban', 'Business', 'Personal']
 
@@ -117,6 +109,7 @@ export class TripComponent implements OnInit{
         .pipe(
             first(),
             switchMap( tripList => {
+                this.currentTrip = tripList.find((trip) => trip?.trip_id === this.tripId);
                 return tripList;
             })
 
@@ -163,8 +156,6 @@ export class TripComponent implements OnInit{
           .pipe(
               first(),
               switchMap( generatedItemId => {
-
-                  console.log('ITEM ID: ',generatedItemId);
 
                   newItem.item_id = generatedItemId;
                   return this.apiService.updateItineraryItemDetails(generatedItemId,this.tripId as string, newItem)
