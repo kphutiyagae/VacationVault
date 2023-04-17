@@ -84,7 +84,7 @@ export class HomeComponent{
             switchMap(generatedTripId => {
                 newTrip.trip_id = generatedTripId;
                 return this.apiService.updateTripDetails(generatedTripId, newTrip)
-                    .pipe( switchMap(value => {
+                    .pipe( switchMap(() => {
                       return new BehaviorSubject<void>(this.store.dispatch(getUserTripList({user_id: getUserId() as string})));
                     }))
             }
@@ -102,7 +102,7 @@ export class HomeComponent{
 
     if(!trip) return;
     this.router.navigate([`trip/${trip.trip_id}`])
-        .catch((err: Error) => {})
+
   }
 
 }

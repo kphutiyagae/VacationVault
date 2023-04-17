@@ -9,12 +9,9 @@ interface CurrencyKeyValue {
 
 
 export function getCurrencySymbol(currencyCode: string){
-    console.log('Within', currencyCode)
     if(!currencyCode) return null;
 
     const symbolKey = Object.keys(currencyCodeObject).find( code => code === currencyCode);
-
-    console.log('Within 2', Object.keys(currencyCodeObject))
 
     if(!symbolKey) return null;
 
@@ -48,17 +45,12 @@ export function calculateItineraryCost(itinerary: IItem[], baseCurrency: string,
                 .convertAmountToCurrency(currencyCode, baseCurrency, currencyCodeArray[`${currencyCode}`])
                 .pipe(
                     switchMap( currencyApiResponse => {
-                        //if (currencyApiResponse && currencyApiResponse?.result){
-                        console.log(`FROM: ${currencyCode} \nTO: ${baseCurrency}\nAMOUNT: `,currencyApiResponse.result)
                             cost = cost + currencyApiResponse.result;
-                        console.log('CURRENT COST: ', cost)
-                        //}
                         return EMPTY;
                     })
                 ).subscribe();
         })
 
-        console.log('COST: ', cost);
     }
 
     return cost;

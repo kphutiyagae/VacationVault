@@ -128,7 +128,7 @@
     </nz-modal>
     <ng-template #pageContent>
         <div class="py-8 pl-8 md:row-start-2 md:col-start-1 md:col-end-8">
-            <button nz-button class="rounded-xl bg-primary-color flex justify-center items-center border-none" type="button" (click)="handleBackButtonClick()">
+            <button nz-button class="rounded-xl bg-card-background-color flex justify-center items-center border-none" type="button" (click)="handleBackButtonClick()">
                 <svg stroke="white"
                      fill="white"
                      stroke-width="0"
@@ -263,7 +263,7 @@
                     Itinerary
                 </h3>
                 <div class="pl-8 py-4">
-                    <button nz-button class="text-white rounded-xl bg-primary-color flex justify-center items-center border-none" type="button" (click)="handleAddItemButtonClick()">
+                    <button nz-button class="text-white rounded-xl bg-card-background-color flex justify-center items-center border-none" type="button" (click)="handleAddItemButtonClick()">
                         <svg stroke="currentColor"
                              fill="currentColor"
                              stroke-width="0"
@@ -282,7 +282,7 @@
             <div>
                 <nz-list nzItemLayout="vertical" class="overflow-scroll h-80 md:h-96">
                     <nz-list-item *ngFor=" let item of (this.tripItinerary$ | async)"
-                                  class="drop-shadow-lg bg-blue-200 pl-6 ml-2 mb-1.5 w-[95%] rounded-md" (click)="handleItemClick(item)">
+                                  class="drop-shadow-lg bg-card-background-color hover:bg-card-hover-background focus:bg-primary-color-highlight transition ease-in-out duration-300 pl-6 ml-2 mb-1.5 w-[95%] rounded-md" (click)="handleItemClick(item)">
                         <nz-list-item-meta>
                             <nz-list-item-meta-title>
                                 <p class="py-2 mr-2 text-md font-semibold md:text-2xl md:font-bold">{{item?.title ?? 'Untitled Activity'}}</p>
@@ -297,7 +297,7 @@
                                     </div>
                                     <div class="mr-4 px-5 py-2 z-50 flex flex-row justify-between">
                                         <div>
-                                            <button nz-button class="text-white rounded-xl bg-primary-color flex justify-center items-center border-none" type="button" (click)="handleEditItemButtonClick(item)">
+                                            <button nz-button class="text-white rounded-xl bg-card-background-color flex justify-center items-center border-none" type="button" (click)="handleEditItemButtonClick(item)">
                                                 <svg stroke="currentColor"
                                                      fill="currentColor"
                                                      stroke-width="0"
@@ -317,7 +317,7 @@
                                         </div>
                                         <div class="ml-2.5">
                                             <button nz-button
-                                                    class="text-white rounded-xl bg-primary-color flex justify-center items-center border-none"
+                                                    class="text-white rounded-xl bg-card-background-color flex justify-center items-center border-none"
                                                     type="button"
                                                     (click)="handleItemDelete(item)"
                                             >

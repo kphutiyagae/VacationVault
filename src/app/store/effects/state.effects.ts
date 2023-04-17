@@ -45,7 +45,6 @@ export class StateEffects {
             this.apiService.getTripItineraryList(props.tripId)
                 .pipe(
                     map( response => {
-                      console.log(response);
                       return StateActions.getTripItineraryItemsSuccess({tripItinerary: response})
                     }))
         ),

@@ -13,7 +13,6 @@ import {
 import {from, Observable, of, switchMap} from "rxjs";
 
 import {IItem} from "../../../../models/types";
-import {httpsCallable} from "@angular/fire/functions";
 import {HttpClient} from "@angular/common/http";
 
 @Injectable({

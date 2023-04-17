@@ -100,8 +100,7 @@ export class TripComponent implements OnInit{
         .pipe(
             distinct(),
             map(itinerary => {
-                console.log('TOTAL COST: ', calculateItineraryCost(itinerary, this.baseCurrency, this.apiService ));
-              return itinerary;
+                return itinerary;
             })
         );
 
@@ -129,7 +128,6 @@ export class TripComponent implements OnInit{
       this.isAddingItem = true;
   }
   handleItemClick(item: IItem) {
-    console.log('Item clicked!', item);
   }
 
   handleAddItem(){
@@ -170,8 +168,6 @@ export class TripComponent implements OnInit{
   }
 
   handleItemDelete(item: IItem){
-      console.log(item)
-
       if(item?.item_id)
         this.apiService.removeItineraryItem(item.item_id, this.tripId as string);
   }
