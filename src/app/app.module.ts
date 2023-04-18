@@ -44,6 +44,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StateEffects } from './store/effects/state.effects';
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {NzTimePickerModule} from "ng-zorro-antd/time-picker";
+import {NzRadioModule} from "ng-zorro-antd/radio";
 registerLocaleData(en);
 
 
@@ -89,7 +90,8 @@ registerLocaleData(en);
         StoreDevtoolsModule.instrument({maxAge: 25, logOnly: !isDevMode()}),
         StoreModule.forFeature(fromState.stateFeatureKey, fromState.reducer),
         EffectsModule.forFeature([StateEffects]),
-        NzTimePickerModule
+        NzTimePickerModule,
+        NzRadioModule
     ],
     providers: [
         {provide: FIREBASE_OPTIONS, useValue: environment.firebase},

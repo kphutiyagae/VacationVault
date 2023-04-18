@@ -36,6 +36,7 @@ export class HomeComponent{
 
   countryList: undefined | string[];
 
+  listValue = 'upcoming';
   constructor(
       private apiService: ApiService,
       private authService: AuthService,
@@ -65,6 +66,7 @@ export class HomeComponent{
   handleAddTrip(){
     this.isAddingtrip = true;
   }
+
 
   addUserTrip(){
 

@@ -13,6 +13,9 @@ module.exports = {
         'card-hover-background': '#40a9ff',
         'background-color-dark-theme': '#011627',
       },
+      margin: {
+        '7.5': '1.8rem'
+      },
       fontFamily: {
         'poppins': ['Poppins', 'sans-serif'],
         'bebas': ['Bebas Neue', 'sans-serif']
