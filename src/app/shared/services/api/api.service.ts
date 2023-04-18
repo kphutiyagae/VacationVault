@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {ITrip} from "../../../../models/types";
+import {ICurrencyAPIResponse, ITrip} from "../../../../models/types";
 import {
   Firestore,
   collection,
@@ -8,11 +8,12 @@ import {
   docData,
   addDoc,
   deleteDoc,
-  updateDoc
+  updateDoc, query, where
 } from "@angular/fire/firestore";
 import {from, Observable, of, switchMap} from "rxjs";
 
-import {IItem} from "../../../models/user";
+import {IItem} from "../../../../models/types";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +21,13 @@ import {IItem} from "../../../models/user";
 export class ApiService {
   firestore: Firestore = inject(Firestore);
   constructor(
+      private httpClient: HttpClient
   ) {}
 
-  public getAllTrips(): Observable<ITrip[]> {
+  public getAllTrips(user_id:string): Observable<ITrip[]> {
     const tripCollection = collection(this.firestore, 'trips');
-    return collectionData(tripCollection) as Observable<ITrip[]>;
+    const queryRef = query(tripCollection, where('user_id','==',`${user_id}`))
+    return collectionData(queryRef) as Observable<ITrip[]>;
   }
 
   getTripInfo(tripId: string): Observable<ITrip>{
@@ -43,7 +46,7 @@ export class ApiService {
     const itemCollection = collection(this.firestore, `trips/${tripId}/itinerary`);
     return from( addDoc(itemCollection, item) ).pipe(
         switchMap( documentReference =>
-          documentReference.id
+          of(documentReference.id)
         )
     )
   }
@@ -77,6 +80,10 @@ export class ApiService {
   removeItineraryItem(itemId:string, tripId:string): Observable<void>{
     const itemDocRef = doc(this.firestore, `trips/${tripId}/itinerary/${itemId}`);
     return from(deleteDoc(itemDocRef));
+  }
+
+  convertAmountToCurrency(currencyFrom: string, currencyTo: string, currencyAmount: number){
+    return this.httpClient.get<ICurrencyAPIResponse>(`https://api.exchangerate.host/convert?from=${currencyFrom}&to=${currencyTo}&amount=${currencyAmount}`)
   }
 
 }

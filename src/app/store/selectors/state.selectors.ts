@@ -9,3 +9,8 @@ export const selectUserTrips = createSelector(
     selectUserTripsState,
     (state) => state.userTrips
 )
+
+export const selectTripItineraryItems = createSelector(
+    selectUserTripsState,
+    (state) => state.tripItinerary
+)
