@@ -6,11 +6,26 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'primary-color': '#220678ff',
-        'primary-color-highlight': '#3c19da',
-        'background-color': '#F6F6F6ff',
-        'card-background-color': '#F0ECFE',
-
+        'primary-color': '#0000A3',
+        'primary-color-highlight': '#1F1FFF',
+        'background-color': '#ffffff',
+        'input-fields-background': '#ececec',
+        'card-background-color': '#ACCFEC',
+        'card-hover-background': '#40a9ff',
+        'background-color-dark-theme': '#011627',
+      },
+      margin: {
+        '7.5': '1.8rem'
+      },
+      fontFamily: {
+        'poppins': ['Poppins', 'sans-serif'],
+        'bebas': ['Bebas Neue', 'sans-serif']
+      },
+      width: {
+        'card-mobile' :'95%'
+      },
+      height: {
+        'description-section-mobile': '8rem'
       },
       gridTemplateRows: {
         10: "repeat(10, minmax(0,1fr))",

@@ -6,9 +6,10 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {country_list} from "../../utils/country-list";
 import {Router} from "@angular/router";
 import {AuthService} from "../../shared/services/auth.service";
-import {getUserTripData} from "../../store/actions/state.actions";
+import {getUserTripList} from "../../store/actions/state.actions";
 import {Store} from "@ngrx/store";
 import {selectUserTrips} from "../../store/selectors/state.selectors";
+import {getUserId} from "../../utils/credentials";
 
 @Component({
   selector: 'app-home',
@@ -21,7 +22,10 @@ export class HomeComponent{
 
   isAddingtrip = false;
 
+  isOkLoading = false;
+
   addTripForm: FormGroup;
+
 
   tripAddDetails = {
     country: '',
@@ -35,6 +39,7 @@ export class HomeComponent{
 
   countryList: undefined | string[];
 
+  listValue = 'upcoming';
   constructor(
       private apiService: ApiService,
       private authService: AuthService,
@@ -42,7 +47,7 @@ export class HomeComponent{
       private store: Store
   ) {
 
-    this.store.dispatch(getUserTripData())
+    this.store.dispatch(getUserTripList({user_id: getUserId() as string}))
 
     this.countryList = country_list;
 
@@ -65,7 +70,10 @@ export class HomeComponent{
     this.isAddingtrip = true;
   }
 
+
   addUserTrip(){
+
+    this.isOkLoading = true;
 
     const newTrip: ITrip = {
       name: this.addTripForm.value.name,
@@ -83,8 +91,11 @@ export class HomeComponent{
             switchMap(generatedTripId => {
                 newTrip.trip_id = generatedTripId;
                 return this.apiService.updateTripDetails(generatedTripId, newTrip)
-                    .pipe( switchMap(value => {
-                      return new BehaviorSubject<void>(this.store.dispatch(getUserTripData()));
+                    .pipe( switchMap(() => {
+                      this.addTripForm.reset();
+                      this.isOkLoading = false;
+                      this.isAddingtrip = false;
+                      return new BehaviorSubject<void>(this.store.dispatch(getUserTripList({user_id: getUserId() as string})));
                     }))
             }
             )
@@ -101,7 +112,7 @@ export class HomeComponent{
 
     if(!trip) return;
     this.router.navigate([`trip/${trip.trip_id}`])
-        .catch((err: Error) => {})
+
   }
 
 }

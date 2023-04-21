@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
-import { registerLocaleData } from '@angular/common';
+import {NgOptimizedImage, registerLocaleData} from '@angular/common';
 import en from '@angular/common/locales/en';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -43,6 +43,9 @@ import * as fromState from './store/reducers/state.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { StateEffects } from './store/effects/state.effects';
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
+import {NzTimePickerModule} from "ng-zorro-antd/time-picker";
+import {NzRadioModule} from "ng-zorro-antd/radio";
+import { ServiceWorkerModule } from '@angular/service-worker';
 registerLocaleData(en);
 
 
@@ -87,7 +90,16 @@ registerLocaleData(en);
         EffectsModule.forRoot([]),
         StoreDevtoolsModule.instrument({maxAge: 25, logOnly: !isDevMode()}),
         StoreModule.forFeature(fromState.stateFeatureKey, fromState.reducer),
-        EffectsModule.forFeature([StateEffects])
+        EffectsModule.forFeature([StateEffects]),
+        NzTimePickerModule,
+        NzRadioModule,
+        NgOptimizedImage,
+        ServiceWorkerModule.register('ngsw-worker.js', {
+          enabled: !isDevMode(),
+          // Register the ServiceWorker as soon as the application is stable
+          // or after 30 seconds (whichever comes first).
+          registrationStrategy: 'registerWhenStable:30000'
+        }),
     ],
     providers: [
         {provide: FIREBASE_OPTIONS, useValue: environment.firebase},
