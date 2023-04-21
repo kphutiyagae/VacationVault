@@ -17,7 +17,7 @@
               [nzOkLoading]="isOkLoading"
               (nzOnCancel)="handleModalCancel()">
         <ng-container *nzModalContent>
-            <form nz-form [formGroup]="itemForm" class="w-full">
+            <form nz-form nzLayout="vertical" [formGroup]="itemForm" class="w-full ">
                 <nz-form-item>
                     <nz-form-label nzFor="title">Title</nz-form-label>
                     <nz-form-control nzHasFeedback>
@@ -25,7 +25,7 @@
                                 type="text"
                                 id="name"
                                 formControlName="title"
-                                class="bg-background-color p-1.5 w-full"
+                                class="bg-input-fields-background p-1.5 w-full"
                         >
                     </nz-form-control>
                 </nz-form-item>
@@ -36,7 +36,7 @@
                                 type="text"
                                 id="description"
                                 formControlName="description"
-                                class="bg-background-color p-1.5 w-full h-28 "
+                                class="bg-input-fields-background p-1.5 w-full pb-12"
                         >
                     </nz-form-control>
                 </nz-form-item>
@@ -60,7 +60,7 @@
                                 type="number"
                                 id="cost"
                                 formControlName="cost"
-                                class="bg-background-color p-1.5 w-full"
+                                class="bg-input-fields-background p-1.5 w-full"
                         >
                     </nz-form-control>
                 </nz-form-item>
@@ -107,7 +107,7 @@
                                 type="text"
                                 id="notes"
                                 formControlName="notes"
-                                class="bg-background-color p-1.5 w-full h-28 "
+                                class="bg-input-fields-background p-1.5 w-full pb-12 "
                         >
                     </nz-form-control>
                 </nz-form-item>
@@ -146,12 +146,12 @@
 
         <div class="py-8 md:row-start-3 md:row-end-4 md:col-start-1 md:col-end-8">
             <p class="text-md font-light ml-8 mb-1.5 md:text-lg">Trip name:</p>
-            <h3 class="text-xl font-bold ml-8 md:text-5xl md:mt-4">{{currentTrip?.name}}</h3>
+            <h3 class="text-3xl mt-6 font-bold ml-8 md:text-5xl md:mt-4 font-bebas">{{currentTrip?.name}}</h3>
         </div>
 
         <div class="h-36 flex flex-row justify-around md:row-start-3 md:row-end-5 md:col-start-7 md:col-end-12">
             <div class="h-32 mt-2
-            overflow-hidden py-2 px-2
+            overflow-hidden py-2 px-2 ml-8 mr-6
             bg-blue-200 w-card-mobile drop-shadow-md
             rounded-lg grid grid-rows-5 grid-cols-6">
                 <div class="
@@ -182,7 +182,7 @@
                             0 15.5-6.94 15.5-15.5v-21.7C359.23 71.63 422.86 131.02 441.93 208H423.5c-8.56 0-15.5 6.94-15.5 15.5z">
                             </path>
                     </svg>
-                    <p class="ml-2 font-extrabold md:text-xl">{{currentTrip?.country}}</p>
+                    <h3 class="ml-2 font-extrabold md:text-xl font-bebas">{{currentTrip?.country}}</h3>
                 </div>
 
                 <div class="row-start-3
@@ -245,10 +245,10 @@
         </div>
 
         <div class="h-description-section-mobile md:row-start-6 md:row-end-9 md:mt md:col-start-1 md:col-end-8 md:mt-10">
-            <p class="ml-6 text-md font-light pt-4 md:ml-8 md:mb-8 md:text-lg">
+            <p class="ml-8 text-md font-light pt-4 md:ml-8 md:mb-8 md:text-lg">
                 Description:
             </p>
-            <p class="ml-6 md: md:ml-8 md:mt-4 md:text-xl">
+            <p class="ml-8 md:ml-8 md:mt-6 md:text-xl mt-4">
                 {{currentTrip?.description}}
             </p>
         </div>
@@ -280,9 +280,13 @@
                 </div>
             </div>
             <div>
-                <nz-list nzItemLayout="vertical" class="overflow-scroll h-80 md:h-96">
+                <nz-list nzItemLayout="vertical" class="page-content__trip-list overflow-scroll h-4/5 ml-6 mr-4 mb-4 mt-4">
                     <nz-list-item *ngFor=" let item of (this.tripItinerary$ | async)"
-                                  class="drop-shadow-lg bg-card-background-color hover:bg-card-hover-background focus:bg-primary-color-highlight transition ease-in-out duration-300 pl-6 ml-2 mb-1.5 w-[95%] rounded-md" (click)="handleItemClick(item)">
+                                  class="
+                                          drop-shadow-sm outline-0 border-0 pl-6 bg-blue-200
+                                          hover:bg-card-hover-background focus:bg-primary-color-highlight
+                                          transition ease-in-out duration-200 hover:drop-shadow-lg
+                                          ml-2 mb-1.5 w-[95%] rounded-md" (click)="handleItemClick(item)">
                         <nz-list-item-meta>
                             <nz-list-item-meta-title>
                                 <p class="py-2 mr-2 text-md font-semibold md:text-2xl md:font-bold">{{item?.title ?? 'Untitled Activity'}}</p>

@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
-import { registerLocaleData } from '@angular/common';
+import {NgOptimizedImage, registerLocaleData} from '@angular/common';
 import en from '@angular/common/locales/en';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -91,7 +91,8 @@ registerLocaleData(en);
         StoreModule.forFeature(fromState.stateFeatureKey, fromState.reducer),
         EffectsModule.forFeature([StateEffects]),
         NzTimePickerModule,
-        NzRadioModule
+        NzRadioModule,
+        NgOptimizedImage,
     ],
     providers: [
         {provide: FIREBASE_OPTIONS, useValue: environment.firebase},
