@@ -1,10 +1,8 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-calendar-card',
-  templateUrl: './calendar-card.component.html',
-  styleUrls: ['./calendar-card.component.scss']
+  selector: "app-calendar-card",
+  templateUrl: "./calendar-card.component.html",
+  styleUrls: ["./calendar-card.component.scss"],
 })
-export class CalendarCardComponent {
-
-}
+export class CalendarCardComponent {}

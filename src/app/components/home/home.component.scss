@@ -1,11 +1,11 @@
 //Code from: https://stackoverflow.com/questions/16670931/hide-scroll-bar-but-while-still-being-able-to-scroll
 
 .page-content__trip-list {
-  -ms-overflow-style: none;  /* Internet Explorer 10+ */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
 
   &::-webkit-scrollbar {
-    display: none;  /* Safari and Chrome */
+    display: none; /* Safari and Chrome */
   }
 }
 
@@ -19,5 +19,5 @@ button {
 }
 
 html {
-  background-color: #F6F6F6ff;
+  background-color: #f6f6f6ff;
 }

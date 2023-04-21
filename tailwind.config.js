@@ -1,31 +1,29 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{html,ts}",
-  ],
+  content: ["./src/**/*.{html,ts}"],
   theme: {
     extend: {
       colors: {
-        'primary-color': '#0000A3',
-        'primary-color-highlight': '#1F1FFF',
-        'background-color': '#ffffff',
-        'input-fields-background': '#ececec',
-        'card-background-color': '#ACCFEC',
-        'card-hover-background': '#40a9ff',
-        'background-color-dark-theme': '#011627',
+        "primary-color": "#0000A3",
+        "primary-color-highlight": "#1F1FFF",
+        "background-color": "#ffffff",
+        "input-fields-background": "#ececec",
+        "card-background-color": "#ACCFEC",
+        "card-hover-background": "#40a9ff",
+        "background-color-dark-theme": "#011627",
       },
       margin: {
-        '7.5': '1.8rem'
+        7.5: "1.8rem",
       },
       fontFamily: {
-        'poppins': ['Poppins', 'sans-serif'],
-        'bebas': ['Bebas Neue', 'sans-serif']
+        poppins: ["Poppins", "sans-serif"],
+        bebas: ["Bebas Neue", "sans-serif"],
       },
       width: {
-        'card-mobile' :'95%'
+        "card-mobile": "95%",
       },
       height: {
-        'description-section-mobile': '8rem'
+        "description-section-mobile": "8rem",
       },
       gridTemplateRows: {
         10: "repeat(10, minmax(0,1fr))",
@@ -38,7 +36,7 @@ module.exports = {
       },
       gridRowEnd: {
         8: "8",
-        9: '9',
+        9: "9",
         10: "10",
         11: "11",
         12: "12",
@@ -47,4 +45,4 @@ module.exports = {
     },
   },
   plugins: [],
-}
+};

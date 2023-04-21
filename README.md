@@ -1,6 +1,8 @@
 # VacationVault
-
+Angular Grad Program project for organising trips and related information.
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.4.
+
+### Deployed App link: https://vacationvault-f9e86.web.appc
 
 ## Development server
 

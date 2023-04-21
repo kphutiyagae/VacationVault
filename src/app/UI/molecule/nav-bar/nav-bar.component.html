@@ -1,20 +1,20 @@
 <div class="w-full py-4">
-    <ul nz-menu nzMode="horizontal"  class="h-full">
-        <li nz-submenu nzIcon="menu" class="p-3">
-            <ul>
-                <li nz-menu-group nzTitle="Navigation">
-                    <ul>
-                        <li nz-menu-item>
-                            <a routerLink="">Home</a>
-                        </li>
-                    </ul>
-                </li>
-                <li nz-menu-group nzTitle="Settings" nz-icon="settings">
-                    <ul>
-                        <li nz-menu-item nzDanger (click)="logoutUser()">Logout</li>
-                    </ul>
-                </li>
-            </ul>
+  <ul nz-menu nzMode="horizontal" class="h-full">
+    <li nz-submenu nzIcon="menu" class="p-3">
+      <ul>
+        <li nz-menu-group nzTitle="Navigation">
+          <ul>
+            <li nz-menu-item>
+              <a routerLink="">Home</a>
+            </li>
+          </ul>
         </li>
-    </ul>
+        <li nz-menu-group nzTitle="Settings" nz-icon="settings">
+          <ul>
+            <li nz-menu-item nzDanger (click)="logoutUser()">Logout</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
 </div>
