@@ -35,13 +35,71 @@
                         <ngx-skeleton-loader count="3" [theme]="{height: '100px', width: '95%', marginLeft: '0.70rem'}"></ngx-skeleton-loader>
                     </ng-container>
                     <ng-template #pageContent>
-                        <nz-list nzItemLayout="vertical" class="page-content__trip-list overflow-scroll h-4/5 ml-6 mr-4 mb-4 mt-4">
-                            <nz-list-item *ngFor=" let trip of (this.userTrips$ | async)"
-                                          class="
+                        <ng-container *ngIf="(this.userTrips$ | async)?.length === 0 else TripData">
+                            <div class="w-full h-full">
+                                <div class=" h-1/2 flex flex-col justify-center items-center">
+                                    <img ngSrc="assets/images/globe-icon.png" alt="No trips found globe icon"  width="100" height="100">
+                                </div>
+                                <div class="h-1/2 flex flex-col items-center">
+                                    <p class="text-xl font-poppins font-light text-gray-300">No trips found</p>
+                                </div>
+
+                            </div>
+                        </ng-container>
+                        <ng-template #TripData>
+                            <nz-list nzItemLayout="vertical" class="page-content__trip-list
+                                    overflow-scroll cursor-pointer
+                        h-4/5 ml-6 mr-4 mb-4 mt-4">
+                                <nz-list-item *ngFor=" let trip of (this.userTrips$ | async)"
+                                              class="
                                           drop-shadow-sm outline-0 border-0 pl-6 bg-card-background-color
                                           hover:bg-card-hover-background focus:bg-primary-color-highlight
                                           transition ease-in-out duration-200 hover:drop-shadow-lg
                                           ml-2 mb-1.5 w-[95%] rounded-md"
+                                              (click)="handleTripClick(trip)">
+                                    <nz-list-item-meta>
+                                        <nz-list-item-meta-title>
+                                            <p class="md:text-xl font-poppins font-semibold">
+                                                {{trip?.name}}
+                                            </p>
+                                        </nz-list-item-meta-title>
+                                        <nz-list-item-meta-description>
+                                            <p class="md:text-lg font-light font-poppins">{{trip?.country}}</p>
+                                        </nz-list-item-meta-description>
+                                    </nz-list-item-meta>
+                                </nz-list-item>
+                            </nz-list>
+                        </ng-template>
+
+                    </ng-template>
+
+                </div>
+            </ng-container>
+
+            <ng-template #HistoryList>
+                <div class="h-3/4 md:h-full"
+                >
+                    <h2 class="font-light ml-8 pb-4 text-md text-gray-600 font-poppins md:text-lg mt-5">Past Trips</h2>
+                    <ng-container *ngIf="(userTrips$ | async)?.length === 0; else pastTripsList">
+                        <div class="w-full h-full">
+                            <div class=" h-1/2 flex flex-col justify-center items-center">
+                                <img ngSrc="assets/images/globe-icon.png" alt="No trips found globe icon"  width="100" height="100">
+                            </div>
+                            <div class="h-1/2 flex flex-col items-center">
+                                <p class="text-xl font-poppins font-light text-gray-300">No trips found</p>
+                            </div>
+
+
+                        </div>
+                    </ng-container>
+                    <ng-template #pastTripsList>
+                        <nz-list nzItemLayout="vertical" class="page-content__trip-list overflow-scroll h-5/6 ml-6 mr-4 mb-4 mt-4">
+                            <nz-list-item *ngFor=" let trip of (this.userTrips$ | async)"
+                                          class="
+                              drop-shadow-sm outline-0 border-0 pl-6 bg-card-background-color
+                              hover:bg-card-hover-background focus:bg-primary-color-highlight
+                              transition ease-in-out duration-200 hover:drop-shadow-lg
+                              ml-2 mb-1.5 w-[95%] rounded-md"
                                           (click)="handleTripClick(trip)">
                                 <nz-list-item-meta>
                                     <nz-list-item-meta-title>
@@ -55,33 +113,8 @@
                                 </nz-list-item-meta>
                             </nz-list-item>
                         </nz-list>
-
                     </ng-template>
                 </div>
-            </ng-container>
-
-            <ng-template #HistoryList>
-                <h2 class="font-light ml-8 pb-4 text-md text-gray-600 font-poppins md:text-lg mt-5">Past Trips</h2>
-                <nz-list nzItemLayout="vertical" class="page-content__trip-list overflow-scroll h-5/6 ml-6 mr-4 mb-4 mt-4">
-                    <nz-list-item *ngFor=" let trip of (this.userTrips$ | async)"
-                                  class="
-                              drop-shadow-sm outline-0 border-0 pl-6 bg-card-background-color
-                              hover:bg-card-hover-background focus:bg-primary-color-highlight
-                              transition ease-in-out duration-200 hover:drop-shadow-lg
-                              ml-2 mb-1.5 w-[95%] rounded-md"
-                                  (click)="handleTripClick(trip)">
-                        <nz-list-item-meta>
-                            <nz-list-item-meta-title>
-                                <p class="md:text-xl font-poppins font-semibold">
-                                    {{trip?.name}}
-                                </p>
-                            </nz-list-item-meta-title>
-                            <nz-list-item-meta-description>
-                                <p class="md:text-lg font-light font-poppins">{{trip?.country}}</p>
-                            </nz-list-item-meta-description>
-                        </nz-list-item-meta>
-                    </nz-list-item>
-                </nz-list>
             </ng-template>
         </div>
     </ng-container>
@@ -92,7 +125,8 @@
      row-end-13
      col-start-6 col-end-13 flex-col justify-center items-center">
         <div class="w-[90%] p-5 md:ml-5 md:mt-12">
-            <nz-calendar [nzFullscreen]="false"></nz-calendar>
+            <nz-calendar [nzFullscreen]="false">
+            </nz-calendar>
         </div>
         <div class="w-[90%] p-5 md:mt-12 md:ml-5">
         </div>
@@ -109,9 +143,9 @@
                 (click)="handleAddTrip()"
                 nz-icon="add"
                 nzShape="circle"
-                nzSize="large"
-                class="
-                bg-card-background-color
+                nzSize="default"
+                class="flex justify-center items-center
+                bg-card-hover-background drop-shadow-lg
                 outline-0 border-0">
             <span nz-icon nzType="plus"></span>
         </button>
@@ -119,9 +153,10 @@
                   nzTitle="Add Trip"
                   (nzOnOk)="addUserTrip()"
                   [nzOkDisabled]="!addTripForm.valid"
+                  [nzOkLoading]="isOkLoading"
                   (nzOnCancel)="handleModalCancel()">
             <ng-container *nzModalContent>
-                <form nz-form [formGroup]="addTripForm" class="w-full">
+                <form nz-form [nzLayout]="'vertical'" [formGroup]="addTripForm" class="w-full">
                     <nz-form-item>
                         <nz-form-label nzFor="name">Name</nz-form-label>
                         <nz-form-control nzHasFeedback>
@@ -129,7 +164,7 @@
                                     type="text"
                                     id="name"
                                     formControlName="name"
-                                    class="bg-background-color p-1.5 w-full"
+                                    class="bg-input-fields-background p-1.5 w-full"
                             >
                         </nz-form-control>
                     </nz-form-item>
@@ -140,7 +175,7 @@
                                     type="text"
                                     id="description"
                                     formControlName="description"
-                                    class="bg-background-color p-1.5 w-full h-28 "
+                                    class="bg-input-fields-background p-1.5 w-full pb-12 "
                             >
                         </nz-form-control>
                     </nz-form-item>
@@ -179,9 +214,3 @@
     </div>
 
 </div>
-
-
-<!--
-
-
--->

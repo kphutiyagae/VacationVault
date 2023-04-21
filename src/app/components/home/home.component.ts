@@ -22,7 +22,10 @@ export class HomeComponent{
 
   isAddingtrip = false;
 
+  isOkLoading = false;
+
   addTripForm: FormGroup;
+
 
   tripAddDetails = {
     country: '',
@@ -70,6 +73,8 @@ export class HomeComponent{
 
   addUserTrip(){
 
+    this.isOkLoading = true;
+
     const newTrip: ITrip = {
       name: this.addTripForm.value.name,
       description: this.addTripForm.value.description,
@@ -87,6 +92,9 @@ export class HomeComponent{
                 newTrip.trip_id = generatedTripId;
                 return this.apiService.updateTripDetails(generatedTripId, newTrip)
                     .pipe( switchMap(() => {
+                      this.addTripForm.reset();
+                      this.isOkLoading = false;
+                      this.isAddingtrip = false;
                       return new BehaviorSubject<void>(this.store.dispatch(getUserTripList({user_id: getUserId() as string})));
                     }))
             }
